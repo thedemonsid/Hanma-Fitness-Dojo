@@ -24,7 +24,7 @@ model User {
   role             UserRole      @default(USER)
   createdAt        DateTime      @default(now()) @map(name: "created_at")
   updatedAt        DateTime      @updatedAt @map(name: "updated_at")
-  workouts         WorkoutPlan[]
+  workoutPlan      WorkoutPlan[]
   dietPlans        DietPlan[]
   activityLogs     ActivityLog[]
 
@@ -38,16 +38,36 @@ enum UserRole {
 }
 
 model WorkoutPlan {
-  id           String     @id @default(cuid())
-  title        String
-  description  String?
-  difficulty   Difficulty
-  videoUrl     String?
-  instructions String?
-  userId       String
-  user         User       @relation(fields: [userId], references: [id])
+  id         String     @id @default(cuid())
+  difficulty Difficulty
+  userId     String
+  user       User       @relation(fields: [userId], references: [id])
+  workouts   Workout[]
 
   @@map(name: "workout_plans")
+}
+
+model Workout {
+  id            String        @id @default(cuid())
+  title         String
+  description   String?
+  videoUrl      String?
+  imageUrl      String?
+  difficulty    Difficulty
+  muscleGroup   MuscleGroup[]
+  workoutPlanId String
+  workoutPlan   WorkoutPlan   @relation(fields: [workoutPlanId], references: [id])
+
+  @@map(name: "workouts")
+}
+
+enum MuscleGroup {
+  CHEST
+  BACK
+  LEGS
+  ARMS
+  SHOULDERS
+  CORE
 }
 
 enum Difficulty {
