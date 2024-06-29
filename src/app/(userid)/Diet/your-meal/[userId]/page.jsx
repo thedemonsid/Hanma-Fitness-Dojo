@@ -72,7 +72,7 @@ import Loading from "@/app/loading";
 
 // `;
 
-function page({ params }) {
+function Meal({ params }) {
   let [content, setContent] = useState("");
   useEffect(() => {
     getMeal(params.userId).then((data) => {
@@ -93,4 +93,4 @@ function page({ params }) {
   );
 }
 
-export default page;
+export default Meal;
