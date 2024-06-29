@@ -14,33 +14,40 @@ export default function Nav() {
       <div className="w-full px-4 mx-auto max-w-7xl">
         <div className="flex items-center justify-between h-14">
           <Link className="flex items-center" href="/">
-            <h1 className="text-xl sm:text-3xl text-secondary">Hanma-Fitness Dojo</h1>
+            <h1 className="text-xl sm:text-3xl text-secondary">
+              Hanma-Fitness Dojo
+            </h1>
           </Link>
           <nav className="hidden gap-4 md:flex md:flex-row">
             <Link
               className="flex items-center font-medium transition-colors text-md hover:underline text-secondary"
-              href="/">
+              href="/"
+            >
               Home
             </Link>
             <Link
               className="flex items-center font-medium transition-colors text-md hover:underline text-secondary"
-              href="/dashboard">
+              href="/dashboard"
+            >
               DashBoard
             </Link>
             <Link
               className="flex items-center font-medium transition-colors text-md hover:underline text-secondary"
-              href="/discussions">
+              href="/Gym/workoutinfo"
+            >
               Gym-planner
             </Link>
             <Link
               className="flex items-center font-medium transition-colors text-md hover:underline text-secondary"
-              href="/localnews">
+              href="/Diet/your-meal/"
+            >
               Diet-Planner
             </Link>
           </nav>
           <button
             type="button"
-            className="hidden px-3 py-2 text-base font-medium rounded-md md:block text-primary bg-secondary hover:bg-secondary hover:text-primary">
+            className="hidden px-3 py-2 text-base font-medium rounded-md md:block text-primary bg-secondary hover:bg-secondary hover:text-primary"
+          >
             Sign In
           </button>
           {/* Mobile menu */}
@@ -50,7 +57,8 @@ export default function Nav() {
               onClick={toggleMobileMenu}
               className="inline-flex items-center justify-center p-2 text-gray-400 rounded-md bg-secondary hover:text-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-secondary focus:ring-primary"
               aria-controls="mobile-menu"
-              aria-expanded={mobileMenuOpen}>
+              aria-expanded={mobileMenuOpen}
+            >
               <span className="sr-only">Open main menu</span>
               {mobileMenuOpen ? (
                 <svg
@@ -59,7 +67,8 @@ export default function Nav() {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="white"
-                  aria-hidden="true">
+                  aria-hidden="true"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -74,7 +83,8 @@ export default function Nav() {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="white"
-                  aria-hidden="true">
+                  aria-hidden="true"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -94,27 +104,32 @@ export default function Nav() {
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-2">
             <Link
               href="/"
-              className="block px-3 py-2 text-base font-medium underline text-secondary hover:bg-secodary">
+              className="block px-3 py-2 text-base font-medium underline text-secondary hover:bg-secodary"
+            >
               Home
             </Link>
             <Link
               href="/issuelist"
-              className="block px-3 py-2 text-base font-medium underline text-secondary hover:bg-secodary hover:text-primary">
+              className="block px-3 py-2 text-base font-medium underline text-secondary hover:bg-secodary hover:text-primary"
+            >
               Issue List
             </Link>
             <Link
               href="/discussions"
-              className="block px-3 py-2 text-base font-medium underline text-secondary hover:bg-secodary hover:text-primary">
+              className="block px-3 py-2 text-base font-medium underline text-secondary hover:bg-secodary hover:text-primary"
+            >
               Discussions
             </Link>
             <Link
               href="/localnews"
-              className="block px-3 py-2 text-base font-medium underline text-secondary hover:bg-secodary hover:text-primary">
+              className="block px-3 py-2 text-base font-medium underline text-secondary hover:bg-secodary hover:text-primary"
+            >
               Local News
             </Link>
             <button
               type="button"
-              className="block w-full px-3 py-2 text-base font-medium rounded-md text-primary bg-secondary hover:bg-popover hover:text-primary">
+              className="block w-full px-3 py-2 text-base font-medium rounded-md text-primary bg-secondary hover:bg-popover hover:text-primary"
+            >
               Sign In
             </button>
           </div>
