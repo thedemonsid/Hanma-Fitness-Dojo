@@ -10,22 +10,93 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
-model Post {
-  id        String  @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User?   @relation(fields: [authorId], references: [id])
-  authorId  String?
-}
-
 model User {
-  id        String   @id @default(cuid())
-  name      String?
-  email     String?  @unique
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
-  posts     Post[]
+  id               String        @id @default(cuid())
+  name             String?
+  email            String        @unique
+  age              Int?
+  gender           String?
+  weight           Float?
+  height           Float?
+  fitnessGoals     String?
+  healthConditions String?
+  role             UserRole      @default(USER)
+  createdAt        DateTime      @default(now()) @map(name: "created_at")
+  updatedAt        DateTime      @updatedAt @map(name: "updated_at")
+  workouts         WorkoutPlan[]
+  dietPlans        DietPlan[]
+  activityLogs     ActivityLog[]
 
   @@map(name: "users")
+}
+
+enum UserRole {
+  USER
+  TRAINER
+  ADMIN
+}
+
+model WorkoutPlan {
+  id           String     @id @default(cuid())
+  title        String
+  description  String?
+  difficulty   Difficulty
+  videoUrl     String?
+  instructions String?
+  userId       String
+  user         User       @relation(fields: [userId], references: [id])
+
+  @@map(name: "workout_plans")
+}
+
+enum Difficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+model DietPlan {
+  id              String   @id @default(cuid())
+  title           String
+  description     String?
+  nutritionalInfo String?
+  mealType        MealType
+  recipe          String?
+  userId          String
+  user            User     @relation(fields: [userId], references: [id])
+
+  @@map(name: "diet_plans")
+}
+
+enum MealType {
+  BREAKFAST
+  LUNCH
+  DINNER
+  SNACK
+}
+
+model ActivityLog {
+  id           String       @id @default(cuid())
+  date         DateTime
+  activityType ActivityType
+  duration     Int // Duration in minutes
+  intensity    Intensity
+  userId       String
+  user         User         @relation(fields: [userId], references: [id])
+
+  @@map(name: "activity_logs")
+}
+
+enum ActivityType {
+  WORKOUT
+  CARDIO
+  STRENGTH_TRAINING
+  FLEXIBILITY
+  OTHER
+}
+
+enum Intensity {
+  LOW
+  MEDIUM
+  HIGH
 }
