@@ -1,7 +1,7 @@
 "use client";
 import Markdown from "@/components/ui/markdownrenderer";
 import React, { useState, useEffect } from "react";
-import getPage from "@/utils/getPageByUserId";
+import getPage from "@/utils/getMealByUserId";
 import Loading from "@/app/loading";
 // let content = `
 // # Mediterranean Quinoa Salad
