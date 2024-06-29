@@ -1,7 +1,7 @@
 "use client";
 import Markdown from "@/components/ui/markdownrenderer";
 import React, { useState, useEffect } from "react";
-import getMeal from "@/utils/getMealByUserId";
+import getPage from "@/utils/getPageByUserId";
 import Loading from "@/app/loading";
 // let content = `
 // # Mediterranean Quinoa Salad
@@ -64,7 +64,7 @@ import Loading from "@/app/loading";
 // - Swap quinoa for couscous or bulgur wheat
 // - Add some diced avocado for creaminess
 
-// Enjoy your homemade Mediterranean Quinoa Salad! It's a perfect make-ahead meal for busy weekdays or a crowd-pleasing dish for potlucks and picnics.
+// Enjoy your homemade Mediterranean Quinoa Salad! It's a perfect make-ahead Page for busy weekdays or a crowd-pleasing dish for potlucks and picnics.
 
 // ---
 
@@ -72,14 +72,14 @@ import Loading from "@/app/loading";
 
 // `;
 
-function Meal({ params }) {
+function Page({ params }) {
   let [content, setContent] = useState("");
   useEffect(() => {
-    getMeal(params.userId).then((data) => {
+    getPage(params.userId).then((data) => {
       console.log(data);
       setContent(data);
     });
-  }, []);
+  }, [params.userId]);
   if (!content)
     return (
       <div>
@@ -93,4 +93,4 @@ function Meal({ params }) {
   );
 }
 
-export default Meal;
+export default Page;
