@@ -14,11 +14,16 @@
 - [ ] Implement Plan Based Onboarding forms 
 - [ ] Implement DashBoard
 - [ ] Implement Gym Plan Page (AI Based + form input based)
-- [ ] Implement Nutrition Plan Page (AI Based + form input based)
+- [ ] Implement  Nutrition Plan Page (AI Based + form input based)
 - [ ] Implement Gym-tracker(A detailed Page where we can show every little insight)
 - [ ] Implement Nutri-tracker(A detailed Page where we can show every little insight)
 - [ ] User Session 
 - [ ] Responsive design (!important)
+- [ ] Create a new Page for the user to get the payment details
+- [ ] Create a new Page for the user to get the payment history
+- [ ] Create a new Page for the user to get the payment status
+- [ ] Create a new Page for the user to get the payment receipt
+- [ ] Or create a Payment dashboard which will include these
 
 ### **Backend** :-
 - [x] Create a new Database and connect it to the project Prisma(postgres)
