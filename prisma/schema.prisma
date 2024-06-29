@@ -18,8 +18,10 @@ model User {
   age              Int?
   gender           String?
   weight           Float?
+  intensityLevel   Intensity?
+  dietPreference   String?
   height           Float?
-  fitnessGoals     String?
+  fitnessGoal      String?
   healthConditions String?
   role             UserRole      @default(USER)
   createdAt        DateTime      @default(now()) @map(name: "created_at")
