@@ -68,7 +68,7 @@
   - Enable users to log workouts, track progress, and analyze performance.
   - Implement visual representation of daily, weekly, and monthly activity.
 
-  ## Contributing to the Project
+## Contributing to the Project
 1. **Fork the Repository**: Start by forking the repository to your own GitHub account.
 
 2. **Clone the Repository**: Next, clone the forked repository to your local machine:
