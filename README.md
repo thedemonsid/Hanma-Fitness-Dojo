@@ -7,11 +7,23 @@
 ## Todo List
 ### **Configurations** :-
 - [x] Create a new repository and initialize the next.js project
-- [ ] Add a README file
+- [x] Add a README file
+
+### **Frontend** :-
+- [ ] Skeleton UI
+- [ ] Implement Plan Based Onboarding forms 
+- [ ] Implement DashBoard
+- [ ] Implement Gym Plan Page (AI Based + form input based)
+- [ ] Implement Nutrition Plan Page (AI Based + form input based)
+- [ ] Implement Gym-tracker(A detailed Page where we can show every little insight)
+- [ ] Implement Nutri-tracker(A detailed Page where we can show every little insight)
+- [ ] User Session 
+- [ ] Responsive design (!important)
+
 ### **Backend** :-
-- [ ] Create a new Database and connect it to the project Prisma(postgres)
-- [ ] Create a new schema for the database
-- [ ] Create a new model for the database
+- [x] Create a new Database and connect it to the project Prisma(postgres)
+- [x] Create a new schema for the database
+- [x] Create a new model for the database
 - [ ] Create basic backend layout
 - [ ] Create a new user authentication system
 - [ ] Add a new user profile system
