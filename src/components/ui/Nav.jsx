@@ -55,7 +55,7 @@ export default function Nav() {
             </Link>
             <Link
               className="flex items-center font-medium transition-colors text-md hover:underline"
-              href="/Diet/your-meal"
+              href={`/Diet/your-meal/${session?.user?.id}`}
             >
               Diet Planner
             </Link>
