@@ -5,9 +5,10 @@
 **Level Up Your Fitness** is a full-stack application designed to help users achieve their fitness goals through personalized workout and nutrition plans. This platform caters to individuals at all levels of their fitness journey, providing tools for tracking progress, managing diet, and staying motivated.
 
 ## Todo List
+### **Configurations** :-
 - [x] Create a new repository and initialize the next.js project
 - [ ] Add a README file
-**Backend**
+### **Backend** :-
 - [ ] Create a new Database and connect it to the project Prisma(postgres)
 - [ ] Create a new schema for the database
 - [ ] Create a new model for the database
