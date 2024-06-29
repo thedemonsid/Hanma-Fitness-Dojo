@@ -68,33 +68,60 @@
   - Enable users to log workouts, track progress, and analyze performance.
   - Implement visual representation of daily, weekly, and monthly activity.
 
-### Development To-Do List
+  ## Contributing to the Project
+1. **Fork the Repository**: Start by forking the repository to your own GitHub account.
 
-- **Phase 1: Project Setup and Initial Configuration**
-  - Set up the project repository and define the technology stack.
-  - Configure user authentication and authorization mechanisms.
-  - Design the database schema for user profiles, workout plans, and nutrition plans.
+2. **Clone the Repository**: Next, clone the forked repository to your local machine:
 
-- **Phase 2: Core Feature Development**
-  - Implement user profile management functionalities.
-  - Develop the algorithm for generating personalized workout plans.
-  - Create the nutrition and diet plan feature, including meal tracking.
+    ```bash
+    git clone https://github.com/<your-username>/<repository-name>.git
+    ```
 
-- **Phase 3: Activity Tracking and Analytics**
-  - Build the activity tracking system.
-  - Integrate analytics for tracking user progress and performance.
+3. **Create a New Branch**: Navigate into the cloned repository and create a new branch for your changes:
 
-- **Phase 4: Testing and Deployment**
-  - Conduct thorough testing of all features.
-  - Deploy the application to a production environment.
+    ```bash
+    cd <repository-name>
+    git checkout -b <branch-name>
+    ```
 
-- **Phase 5: Post-Launch**
-  - Monitor application performance and user feedback.
-  - Plan and implement feature updates and improvements based on user feedback.
+    Replace `<branch-name>` with a descriptive name for your branch (e.g., `add-new-feature`).
 
-### Contributing
+4. **Make Your Changes**: Make the changes you want to contribute. Be sure to follow the project's coding standards and conventions.
 
-We welcome contributions from the community. If you're interested in helping us improve **Hamna Fitness Dojo**, please fork the repository and submit a pull request with your proposed changes.
+5. **Commit Your Changes**: Once you've made your changes, stage and commit them:
+
+    ```bash
+    git add .
+    git commit -m "Your descriptive commit message"
+    ```
+
+6. **Push Your Changes**: Push your changes to your forked repository on GitHub:
+
+    ```bash
+    git push origin <branch-name>
+    ```
+  7. Before committing your changes, make sure to configure the OAuth credentials for Google and GitHub. Obtain the OAuth client ID and secret for both platforms and add them to the `.env` file in the project root directory. The file should look like this:
+
+## Environment Variables Setup 
+| Environment Variable | Description                    |
+|----------------------|--------------------------------|
+| `POSTGRES_DATABASE`  | The name of your PostgreSQL database |
+| `POSTGRES_HOST`      | The host address of your PostgreSQL database |
+| `POSTGRES_PASSWORD`  | The password for your PostgreSQL database |
+| `POSTGRES_PRISMA_URL`| Prisma connection string for your PostgreSQL database with pooling |
+| `POSTGRES_URL`       | Connection string for your PostgreSQL database |
+| `POSTGRES_URL_NON_POOLING` | Connection string for your PostgreSQL database without pooling |
+| `POSTGRES_URL_NO_SSL`| Connection string for your PostgreSQL database without SSL |
+| `POSTGRES_USER`      | The user for your PostgreSQL database |
+| `DATABASE_URL`       | Your postgres connection string |
+| `GITHUB_ID`          | Your GitHub App ID             |
+| `GITHUB_SECRET`      | Your GitHub App Secret         |
+| `GOOGLE_ID`          | Your Google Client ID          |
+| `GOOGLE_SECRET`      | Your Google Client Secret      |
+| `NEXTAUTH_SECRET`    | Your NextAuth Secret           |
+| `NEXTAUTH_URL`       | The URL for your NextAuth application |
+
+  Thank you for your contribution to **Hamna Fitness Dojo**! We appreciate your help in making our project better.
 
 ### License
 
