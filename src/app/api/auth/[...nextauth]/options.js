@@ -7,7 +7,12 @@ export const options = {
     GithubProvider({
       clientId: process.env.GithubId,
       clientSecret: process.env.GithubSecret,
-    })
+    }),
+
+    GoogleProvider({
+      clientId: process.env.GoogleId,
+      clientSecret: process.env.GoogleSecret,
+    }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
