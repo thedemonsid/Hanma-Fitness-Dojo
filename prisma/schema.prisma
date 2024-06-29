@@ -57,8 +57,8 @@ model Workout {
   imageUrl      String?
   difficulty    Difficulty
   muscleGroup   MuscleGroup[]
-  workoutPlanId String
-  workoutPlan   WorkoutPlan   @relation(fields: [workoutPlanId], references: [id])
+  workoutPlanId String?
+  workoutPlan   WorkoutPlan?  @relation(fields: [workoutPlanId], references: [id])
 
   @@map(name: "workouts")
 }
