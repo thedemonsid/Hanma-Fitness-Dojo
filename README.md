@@ -10,15 +10,15 @@
 - [x] Add a README file
 
 ### **Frontend** :-
-- [ ] Skeleton UI
-- [ ] Implement Plan Based Onboarding forms 
-- [ ] Implement DashBoard
-- [ ] Implement Gym Plan Page (AI Based + form input based)
-- [ ] Implement  Nutrition Plan Page (AI Based + form input based)
+- [x] Skeleton UI
+- [x] Implement Plan Based Onboarding forms 
+- [x] Implement DashBoard
+- [x] Implement Gym Plan Page (AI Based + form input based)
+- [x] Implement  Nutrition Plan Page (AI Based + form input based)
 - [ ] Implement Gym-tracker(A detailed Page where we can show every little insight)
 - [ ] Implement Nutri-tracker(A detailed Page where we can show every little insight)
-- [ ] User Session 
-- [ ] Responsive design (!important)
+- [x] User Session 
+- [x] Responsive design (!important)
 - [ ] Create a new Page for the user to get the payment details
 - [ ] Create a new Page for the user to get the payment history
 - [ ] Create a new Page for the user to get the payment status
@@ -31,12 +31,12 @@
 - [x] Create a new model for the database
 - [x] Create basic backend layout
 - [x] Create a new user authentication system
-- [ ] Add a new user profile system
-- [ ] Create API route for OenAI to generate workout plans
-- [ ] Implementing the OpenAI API
+- [x] Add a new user profile system
+- [x] Create API route for OenAI to generate workout plans
+- [x] Implementing the OpenAI API
 - [x] Create a new API route for the user to get the workout plan
-- [ ] Create a new API route for the user to get the nutrition plan
-- [ ] Create a new API route for the user to get the meal plan
+- [x] Create a new API route for the user to get the nutrition plan
+- [x] Create a new API route for the user to get the meal plan
 - [ ] Create a new API route for the user to get the recipe
 - [ ] Payment Gateway Integration
 - [ ] Create a new API route for the user to get the payment details
