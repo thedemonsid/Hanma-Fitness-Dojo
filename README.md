@@ -29,12 +29,12 @@
 - [x] Create a new Database and connect it to the project Prisma(postgres)
 - [x] Create a new schema for the database
 - [x] Create a new model for the database
-- [ ] Create basic backend layout
-- [ ] Create a new user authentication system
+- [x] Create basic backend layout
+- [x] Create a new user authentication system
 - [ ] Add a new user profile system
 - [ ] Create API route for OenAI to generate workout plans
 - [ ] Implementing the OpenAI API
-- [ ] Create a new API route for the user to get the workout plan
+- [x] Create a new API route for the user to get the workout plan
 - [ ] Create a new API route for the user to get the nutrition plan
 - [ ] Create a new API route for the user to get the meal plan
 - [ ] Create a new API route for the user to get the recipe
