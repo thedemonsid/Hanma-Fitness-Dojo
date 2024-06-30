@@ -2,8 +2,9 @@
 import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-
+import { useRouter } from "next/navigation";
 const Home = () => {
+  let router = useRouter();
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
@@ -17,6 +18,10 @@ const Home = () => {
         <Button
           size="lg"
           className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8 py-3"
+          onClick={() => {
+            console.log("Get Started Clicked");
+            router.push("/Gym/workoutinfo");
+          }}
         >
           Get Started
         </Button>
@@ -75,6 +80,10 @@ const Home = () => {
           <Button
             size="lg"
             className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8 py-3 transition-all duration-300 hover:scale-105 hover:shadow-lg"
+            onClick={() => {
+              console.log("Sign Up Now Clicked");
+              router.push("/Diet/your-meal");
+            }}
           >
             Sign Up Now
           </Button>
