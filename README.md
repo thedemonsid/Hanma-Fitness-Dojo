@@ -44,6 +44,8 @@
 - [ ] Create a new API route for the user to get the payment status
 - [ ] Create a new API route for the user to get the payment receipt
 
+
+
 ### Core Features
 
 - **User Authentication and Authorization**
@@ -51,13 +53,16 @@
   - Develop role-based access control to ensure data privacy and security.
 
 - **User Profile Management**
-  - Create detailed user profiles including age, gender, weight, height, fitness goals, and health conditions.
-  - Allow users to update their personal information and track their progress over time.
+  - Create detailed user profiles including age, gender, weight, height, fitness goals, and health conditions, food preference, any past health condition.
+  - Allow users to update their personal information and track their progress.
 
 - **Personalized Workout Plans**
   - Generate custom workout plans based on user profiles and fitness goals.
   - Offer different levels of difficulty (beginner, intermediate, advanced) for workouts.
   - Provide video tutorials and step-by-step instructions for each exercise.
+    
+- **Personalized Workout Plans**
+  - Personalized content suggestions like trending fitness blogs and youtube videos.
 
 - **Nutrition and Diet Plans**
   - Develop personalized diet plans based on the user’s fitness goals and dietary preferences.
@@ -67,6 +72,25 @@
 - **Activity Tracking**
   - Enable users to log workouts, track progress, and analyze performance.
   - Implement visual representation of daily, weekly, and monthly activity.
+ 
+# Demo Images from our website
+
+## Home page with Intuitive UI and Dashboard
+From here, users can access personalized meals and workout plans:
+
+![Feature Image](https://github.com/LEVIII007/odoo_images/blob/main/Screenshot%20from%202024-06-30%2010-18-26.png)
+![Feature Image](https://github.com/LEVIII007/odoo_images/blob/main/Screenshot%20from%202024-06-30%2010-18-34.png)
+
+## Dropdown Menu
+From here, users can access their profile, make changes and Logout:
+
+![Feature Image](https://github.com/LEVIII007/odoo_images/blob/main/Screenshot%20from%202024-06-30%2010-18-55.png)
+
+## Multiple Secure Login Options
+Google sign-in and GitHub sign-in for nerds like us!
+
+![Feature Image](https://github.com/LEVIII007/odoo_images/blob/main/Screenshot%20from%202024-06-30%2010-19-51.png)
+
 
 ## Contributing to the Project
 1. **Fork the Repository**: Start by forking the repository to your own GitHub account.
