@@ -210,22 +210,22 @@ export default function Nav() {
               Home
             </Link>
             <Link
-              href="/Dashboard"
+              href="/dashboard"
               className="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
             >
               Dashboard
             </Link>
             <Link
-              href="/Gym-Planner"
+              href="/Gym/workoutinfo"
               className="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
             >
               Gym-Planner
             </Link>
             <Link
-              href="/editor"
+              href={`/Diet/your-meal/${session?.user?.id}`}
               className="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
             >
-              Write
+              Meal Planner
             </Link>
           </div>
         </div>
