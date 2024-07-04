@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import getPage from "@/utils/getMealByUserId";
 import Loading from "@/app/loading";
 
-function Page({ params }) {
+function PersonalDietPage({ params }) {
   const [content, setContent] = useState("");
 
   useEffect(() => {
@@ -28,4 +28,4 @@ function Page({ params }) {
   );
 }
 
-export default Page;
+export default PersonalDietPage;

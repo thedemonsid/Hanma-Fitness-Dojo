@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import getExercise from "@/utils/getExercise";
 import Loading from "@/app/loading";
 
-function Page({ params }) {
+function PersonalWorkoutPage({ params }) {
   const [content, setContent] = useState("");
 
   useEffect(() => {
@@ -28,4 +28,4 @@ function Page({ params }) {
   );
 }
 
-export default Page;
+export default PersonalWorkoutPage;

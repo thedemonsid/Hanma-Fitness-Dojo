@@ -1,7 +1,7 @@
 import DietQuestionnaireCarousel from '@/components/ui/Diet_info_form'
 import React from 'react'
 
-function page() {
+function DietInfoPage() {
   return (
     <div>
         <DietQuestionnaireCarousel></DietQuestionnaireCarousel>
@@ -9,4 +9,4 @@ function page() {
   )
 }
 
-export default page
+export default DietInfoPage

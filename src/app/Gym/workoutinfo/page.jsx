@@ -1,12 +1,12 @@
-import WorkoutQuestionnaireCarousel from '@/components/ui/workout_info_form'
-import React from 'react'
+import WorkoutQuestionnaireCarousel from "@/components/ui/workout_info_form";
+import React from "react";
 
-function page() {
+function WorkoutInfoPage() {
   return (
     <div>
-        <WorkoutQuestionnaireCarousel></WorkoutQuestionnaireCarousel>
+      <WorkoutQuestionnaireCarousel></WorkoutQuestionnaireCarousel>
     </div>
-  )
+  );
 }
 
-export default page
+export default WorkoutInfoPage;

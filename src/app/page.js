@@ -82,7 +82,7 @@ const Home = () => {
             className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8 py-3 transition-all duration-300 hover:scale-105 hover:shadow-lg"
             onClick={() => {
               console.log("Sign Up Now Clicked");
-              router.push("/Diet/your-meal");
+              router.push("api/auth/signin");
             }}
           >
             Sign Up Now
