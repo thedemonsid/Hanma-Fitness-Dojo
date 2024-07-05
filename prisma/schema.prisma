@@ -28,7 +28,6 @@ model User {
   updatedAt        DateTime      @updatedAt @map(name: "updated_at")
   workoutPlan      WorkoutPlan[]
   dietPlans        DietPlan[]
-  activityLogs     ActivityLog[]
 
   @@map(name: "users")
 }
@@ -57,8 +56,10 @@ model Workout {
   imageUrl      String?
   difficulty    Difficulty
   muscleGroup   MuscleGroup[]
+  duration      Int?
+  intensity     Intensity?
+  WorkoutPlan   WorkoutPlan?  @relation(fields: [workoutPlanId], references: [id])
   workoutPlanId String?
-  workoutPlan   WorkoutPlan?  @relation(fields: [workoutPlanId], references: [id])
 
   @@map(name: "workouts")
 }
@@ -96,26 +97,6 @@ enum MealType {
   LUNCH
   DINNER
   SNACK
-}
-
-model ActivityLog {
-  id           String       @id @default(cuid())
-  date         DateTime
-  activityType ActivityType
-  duration     Int // Duration in minutes
-  intensity    Intensity
-  userId       String
-  user         User         @relation(fields: [userId], references: [id])
-
-  @@map(name: "activity_logs")
-}
-
-enum ActivityType {
-  WORKOUT
-  CARDIO
-  STRENGTH_TRAINING
-  FLEXIBILITY
-  OTHER
 }
 
 enum Intensity {
