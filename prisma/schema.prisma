@@ -21,6 +21,7 @@ model User {
   intensityLevel   Intensity?    @default(MEDIUM)
   dietPreference   String?
   height           Float?
+  region           Region?       @default(INDIAN)
   fitnessGoal      String?       @default("Overall Fitness")
   healthConditions String?       @default("Healthy")
   frequency        String?       @default("3 Days a week")
@@ -40,6 +41,16 @@ enum UserRole {
   USER
   TRAINER
   ADMIN
+}
+
+enum Region {
+  INDIAN
+  AMERICAN
+  CHINESE
+  ITALIAN
+  MEXICAN
+  CONTINENTAL
+  OTHER
 }
 
 enum ExerciseType {
