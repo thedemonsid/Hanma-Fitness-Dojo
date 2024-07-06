@@ -91,6 +91,7 @@ enum Difficulty {
 
 model WorkoutPlan {
   id         String     @id @default(cuid())
+  title      String
   difficulty Difficulty
   users      User[]
   workouts   Workout[]
