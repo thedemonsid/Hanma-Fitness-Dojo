@@ -11,11 +11,12 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter  } from "next/navigation";
+
 const basicQuestions = [
   { id: 1, question: "What is your Name", type: "text" },
   { id: 2, question: "What is your Age", type: "text" },
-  { id: 3, question: "What is your Height (in centimeters)", type: "text" },
+  { id: 3, question: "What is your Height (in centimeters)", type: "number" },
   {
     id: 4,
     question: "What is your fitness goal?",
@@ -76,7 +77,15 @@ const proQuestions = [
 
 function GymQuestionnaireCarousel({ plan = "basic" }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState({});
+  const router=useRouter();
+  const [answers, setAnswers] = useState({
+    name: "",
+    age: "",
+    height: "",
+    fitnessGoal: "",
+    exerciseFrequency: "",
+    healthConditions: "",
+  });
  
   const getQuestions = () => {
     switch (plan) {
@@ -109,7 +118,8 @@ function GymQuestionnaireCarousel({ plan = "basic" }) {
 
   const handleSubmit = () => {
     const userData = Object.values(answers).join(" ");
-    console.log("userdata:", userData);
+    console.log("userdata of onboard:", userData);
+    router.push(`/Diet/Dietinfoform`);
 
   };
 
@@ -119,6 +129,7 @@ function GymQuestionnaireCarousel({ plan = "basic" }) {
     answers[currentQuestion.id] && answers[currentQuestion.id].trim() !== "";
 
   return (
+    
     <div className="flex items-center justify-center w-screen h-screen ">
       <Card className="w-full h-full  mx-auto overflow-hidden">
         <CardHeader className="h-1/6">
