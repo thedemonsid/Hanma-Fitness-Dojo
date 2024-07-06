@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const basicQuestions = [
 
@@ -34,6 +35,8 @@ function DietQuestionnaireCarousel({ plan = "basic" }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState({});
 
+  const router = useRouter();
+
   const questions = plan === "pro" ? proQuestions : basicQuestions;
 
   const handleInputChange = (id, value) => {
@@ -54,7 +57,9 @@ function DietQuestionnaireCarousel({ plan = "basic" }) {
 
   const handleSubmit = () => {
     const userData = Object.entries(answers).map(([key, value]) => `${key}: ${value}`).join(", ");
-    console.log("userdata:", userData);
+    console.log("userdata of Diet info:", userData);
+    router.push(`/Gym/workoutinfo`);
+    
   };
 
   const currentQuestion = questions[currentQuestionIndex];

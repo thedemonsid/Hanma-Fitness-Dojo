@@ -1,12 +1,10 @@
-import GymQuestionnaireCarousel from "@/components/onboardform";
-import React from "react";
+import GymQuestionnaireCarousel from '@/components/onboardform'
+import React from 'react'
 
-const OnBoardPage = () => {
+const page = () => {
   return (
-    <div>
-      <GymQuestionnaireCarousel plan="pro"></GymQuestionnaireCarousel>
-    </div>
-  );
-};
+    <div><GymQuestionnaireCarousel></GymQuestionnaireCarousel></div>
+  )
+}
 
-export default OnBoardPage;
+export default page

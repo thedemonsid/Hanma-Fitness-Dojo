@@ -123,7 +123,24 @@ import { useRouter } from "next/navigation";
 function WorkoutQuestionnaireCarousel({ plan = "basic" }) {
   let router = useRouter();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState({});
+  const [answers, setAnswers] = useState({
+    1: "",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: "",
+    7: "",
+    8: "",
+    9: "",
+    10: "",
+    11: "",
+    12: "",
+    13: "",
+    14: "",
+    15: "",
+    16: "",
+  });
 
   const questions = plan === "pro" ? proQuestions : basicQuestions;
 
@@ -149,7 +166,7 @@ function WorkoutQuestionnaireCarousel({ plan = "basic" }) {
           `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
       )
       .join("&");
-    console.log("userdata:", userData);
+    console.log("userdata of Workout:", userData);
     router.push(`/Gym/workoutinfo/${userData}`);
   };
   const currentQuestion = questions[currentQuestionIndex];

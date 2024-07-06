@@ -10,7 +10,9 @@ export default function Nav() {
   const { data: session } = useSession();
   const router = useRouter();
   const handleSignInClick = () => {
-    signIn();
+   signIn(null, { callbackUrl: "/OnBoardForm" });
+   
+   
   };
   const handleSignOutClick = () => {
     router.push("/api/auth/signout");
