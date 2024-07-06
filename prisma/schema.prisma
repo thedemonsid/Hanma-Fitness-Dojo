@@ -92,8 +92,7 @@ enum Difficulty {
 model WorkoutPlan {
   id         String     @id @default(cuid())
   difficulty Difficulty
-  userId     String
-  user       User       @relation(fields: [userId], references: [id])
+  users      User[]
   workouts   Workout[]
 
   @@map(name: "workout_plans")
@@ -120,8 +119,7 @@ model DietPlan {
   title       String
   description String?
   Meal        Meal[]
-  userId      String?
-  user        User?   @relation(fields: [userId], references: [id])
+  users       User[]
 
   @@map(name: "diet_plans")
 }
