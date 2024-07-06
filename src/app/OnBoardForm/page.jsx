@@ -1,4 +1,4 @@
-import GymQuestionnaireCarousel from "@/components/ui/onboardform";
+import GymQuestionnaireCarousel from "@/components/onboardform";
 import React from "react";
 
 const OnBoardPage = () => {

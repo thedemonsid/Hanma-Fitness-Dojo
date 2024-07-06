@@ -1,5 +1,5 @@
 "use client";
-import Markdown from "@/components/ui/markdownrenderer";
+import Markdown from "@/components/markdownrenderer";
 import React, { useState, useEffect } from "react";
 import getPage from "@/utils/getMealByUserId";
 import Loading from "@/app/loading";

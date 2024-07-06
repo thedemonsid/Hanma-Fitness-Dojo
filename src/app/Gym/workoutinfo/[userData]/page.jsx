@@ -1,5 +1,5 @@
 "use client";
-import Markdown from "@/components/ui/markdownrenderer";
+import Markdown from "@/components/markdownrenderer";
 import React, { useState, useEffect } from "react";
 import getExercise from "@/utils/getExercise";
 import Loading from "@/app/loading";
