@@ -37,6 +37,7 @@
 - [x] Create a new API route for the user to get the workout plan
 - [x] Create a new API route for the user to get the nutrition plan
 - [x] Create a new API route for the user to get the meal plan
+- [ ] Markdown parser for emals and workout(remark)
 - [ ] Create a new API route for the user to get the recipe
 - [ ] Payment Gateway Integration
 - [ ] Create a new API route for the user to get the payment details
