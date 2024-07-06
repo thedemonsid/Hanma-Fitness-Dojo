@@ -18,16 +18,20 @@ model User {
   age              Int?
   gender           String?
   weight           Float?
-  intensityLevel   Intensity?
+  intensityLevel   Intensity?    @default(MEDIUM)
   dietPreference   String?
   height           Float?
-  fitnessGoal      String?
-  healthConditions String?
+  fitnessGoal      String?       @default("Overall Fitness")
+  healthConditions String?       @default("Healthy")
+  frequency        String?       @default("3 Days a week")
+  ExerciseType     ExerciseType  @default(Mixed)
   role             UserRole      @default(USER)
   createdAt        DateTime      @default(now()) @map(name: "created_at")
   updatedAt        DateTime      @updatedAt @map(name: "updated_at")
   workoutPlan      WorkoutPlan[]
   dietPlans        DietPlan[]
+  aiWorkout        String? // AI generated workout but temporary need to change
+  aiDiet           String? // AI generated diet but temporary need to change 
 
   @@map(name: "users")
 }
@@ -36,6 +40,42 @@ enum UserRole {
   USER
   TRAINER
   ADMIN
+}
+
+enum ExerciseType {
+  Cardio
+  StrengthTraining
+  HIIT
+  Yoga
+  Mixed
+}
+
+enum MuscleGroup {
+  CHEST
+  BACK
+  LEGS
+  ARMS
+  SHOULDERS
+  CORE
+}
+
+enum MealType {
+  BREAKFAST
+  LUNCH
+  DINNER
+  SNACK
+}
+
+enum Intensity {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum Difficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
 }
 
 model WorkoutPlan {
@@ -64,43 +104,27 @@ model Workout {
   @@map(name: "workouts")
 }
 
-enum MuscleGroup {
-  CHEST
-  BACK
-  LEGS
-  ARMS
-  SHOULDERS
-  CORE
-}
-
-enum Difficulty {
-  BEGINNER
-  INTERMEDIATE
-  ADVANCED
-}
-
 model DietPlan {
-  id              String   @id @default(cuid())
-  title           String
-  description     String?
-  nutritionalInfo String?
-  mealType        MealType
-  recipe          String?
-  userId          String
-  user            User     @relation(fields: [userId], references: [id])
+  id          String  @id @default(cuid())
+  title       String
+  description String?
+  Meal        Meal[]
+  userId      String?
+  user        User?   @relation(fields: [userId], references: [id])
 
   @@map(name: "diet_plans")
 }
 
-enum MealType {
-  BREAKFAST
-  LUNCH
-  DINNER
-  SNACK
-}
+model Meal {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  imageUrl    String?
+  mealType    MealType
+  recipe      String?
 
-enum Intensity {
-  LOW
-  MEDIUM
-  HIGH
+  DietPlan   DietPlan? @relation(fields: [dietPlanId], references: [id])
+  dietPlanId String?
+
+  @@map(name: "meals")
 }
