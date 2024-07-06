@@ -1,3 +1,3 @@
 export { default } from "next-auth/middleware";
 
-export const config = { matcher: ["/Diet/your-meal/(.*)"] };
+export const config = { matcher: ["/Diet/your-meal/(.*)","/Gym/:path*"] };
