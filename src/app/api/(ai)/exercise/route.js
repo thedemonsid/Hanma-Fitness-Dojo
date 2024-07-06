@@ -27,7 +27,7 @@ export async function POST(request) {
     let userPrompt = `You are a helpful exercise recommendation system, 
     Generate a markdown list containing the name of the exercise, description, duration, and intensity level.
     Keep in mind the preferences of the user which are mentioned below. OUTPUT FORMAT FOR YOUR ANSWER: 
-    LIST OF NAMES, THEIR DURATION, INTENSITY, AND DESCRIPTION OF 2-4 EXERCISES FOR A DAY IN MARKDOWN FORMAT:\n\n
+    LIST OF NAMES, THEIR DURATION, INTENSITY, AND DESCRIPTION OF 4-5 EXERCISES FOR A DAY IN MARKDOWN FORMAT:\n\n
     `;
     userPrompt += `Workout Information: ${workoutDetails}`;
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
