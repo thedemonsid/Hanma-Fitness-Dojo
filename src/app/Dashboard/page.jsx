@@ -1,4 +1,4 @@
-import GymDashboard from "@/components/ui/dashboard";
+import GymDashboard from "@/components/dashboard";
 import React from "react";
 
 const DashBoardPage = () => {
