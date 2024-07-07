@@ -33,7 +33,7 @@ export async function POST(request) {
     - Height: ${user?.height || "Not specified"}, 
     - Fitness Goal: ${user?.fitnessGoal || "Not specified"}, 
     - Activity Level: ${user?.intensityLevel || "Not specified"}, 
-    - Exercise Preferences: ${user?.exercisePreference || "Not specified"}, 
+    - Exercise Type: ${user?.ExerciseType || "Not specified"}, 
     - Health Conditions: ${user?.healthConditions || "None"}, 
     - Gender: ${user?.gender || "Not specified"},
     - Region: ${user?.region || "Not specified"}.\n\n
