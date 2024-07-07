@@ -73,7 +73,7 @@ function DietQuestionnaireCarousel() {
   const handleSubmit = () => {
     const userData = Object.entries(answers).map(([key, value]) => `${key}: ${value}`).join(", ");
     console.log("userdata of Diet info:", userData);
-    router.push(`/Gym/workoutinfo`);
+    router.push(`/Gym/your-workout`);
     
   };
 

@@ -1,8 +1,8 @@
 import axios from "axios";
 
-async function getExercise(workoutInfo) {
+async function getExercise(userId) {
   let data = JSON.stringify({
-    workoutInfo: workoutInfo,
+    userId: userId,
   });
 
   let config = {

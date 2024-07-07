@@ -49,7 +49,7 @@ export default function Nav() {
             </Link>
             <Link
               className="flex items-center font-medium transition-colors text-md hover:underline"
-              href="/Gym/workoutinfo"
+              href="/Gym/your-workout"
             >
               Gym-Planner
             </Link>
@@ -216,7 +216,7 @@ export default function Nav() {
               Dashboard
             </Link>
             <Link
-              href="/Gym/workoutinfo"
+              href="/Gym/your-workout"
               className="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
             >
               Gym-Planner

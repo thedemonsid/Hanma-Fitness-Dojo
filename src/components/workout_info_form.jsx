@@ -40,7 +40,14 @@ const questions = [
     id: 4,
     question: "What type of workouts do you prefer?",
     type: "select",
-    options: ["Cardio", "Strength Training", "HIIT", "Yoga", "Mixed","Muscle-Building"],
+    options: [
+      "Cardio",
+      "Strength Training",
+      "HIIT",
+      "Yoga",
+      "Mixed",
+      "Muscle-Building",
+    ],
   },
   {
     id: 5,
@@ -54,9 +61,7 @@ const questions = [
     type: "select",
     options: ["Gym", "Home Equipment", "Both", "Neither"],
   },
-
 ];
-
 
 import { useRouter } from "next/navigation";
 function WorkoutQuestionnaireCarousel({ plan = "basic" }) {
@@ -81,8 +86,6 @@ function WorkoutQuestionnaireCarousel({ plan = "basic" }) {
     16: "",
   });
 
-
-
   const handleInputChange = (id, value) => {
     setAnswers((prev) => ({ ...prev, [id]: value }));
   };
@@ -106,7 +109,7 @@ function WorkoutQuestionnaireCarousel({ plan = "basic" }) {
       )
       .join("&");
     console.log("userdata of Workout:", userData);
-    router.push(`/Gym/workoutinfo/${userData}`);
+    router.push(`/Gym/your-workout`);
   };
   const currentQuestion = questions[currentQuestionIndex];
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
@@ -114,7 +117,7 @@ function WorkoutQuestionnaireCarousel({ plan = "basic" }) {
     answers[currentQuestion.id] && answers[currentQuestion.id].trim() !== "";
 
   return (
-    <div className="flex items-center justify-center w-screen h-svh p-4 shadow-md shadow-green-300" >
+    <div className="flex items-center justify-center w-screen h-svh p-4 shadow-md shadow-green-300">
       <Card className="w-full h-full mx-auto overflow-hidden rounded-sm p-3">
         <CardHeader className="h-1/6">
           <CardTitle className="text-2xl font-bold text-center mt-2">

@@ -6,9 +6,7 @@ import { useRouter } from "next/navigation";
 const Home = () => {
   let router = useRouter();
   return (
-    
     <div className="min-h-screen bg-background text-foreground">
-
       {/* Hero Section */}
       <header className="container mx-auto px-4 py-20 text-center">
         <h1 className="text-5xl md:text-7xl font-bold mb-6">
@@ -22,7 +20,7 @@ const Home = () => {
           className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8 py-3"
           onClick={() => {
             console.log("Get Started Clicked");
-            router.push("/Gym/workoutinfo");
+            router.push("/Gym/your-workout");
           }}
         >
           Get Started
