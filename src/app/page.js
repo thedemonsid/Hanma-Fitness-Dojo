@@ -6,7 +6,9 @@ import { useRouter } from "next/navigation";
 const Home = () => {
   let router = useRouter();
   return (
+    
     <div className="min-h-screen bg-background text-foreground">
+
       {/* Hero Section */}
       <header className="container mx-auto px-4 py-20 text-center">
         <h1 className="text-5xl md:text-7xl font-bold mb-6">
