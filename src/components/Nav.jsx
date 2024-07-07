@@ -2,18 +2,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function Nav() {
   const { data: session } = useSession();
-  const router = useRouter();
   const handleSignInClick = () => {
     signIn(null, { callbackUrl: "/OnBoardForm" });
   };
   const handleSignOutClick = () => {
-    router.push("/api/auth/signout");
+    signOut({ callbackUrl: "/" });
   };
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
