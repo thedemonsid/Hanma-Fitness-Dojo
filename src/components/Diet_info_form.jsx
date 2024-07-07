@@ -7,37 +7,52 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-const basicQuestions = [
-
-    { id: 1, question: "What is your primary diet goal?", type: "select", options: ["Weight Loss", "Weight Gain", "Maintain Weight", "Improve Health"] },
-    { id: 2, question: "Do you have any dietary restrictions?", type: "select", options: ["None", "Vegetarian", "Vegan", "Gluten-free", "Lactose-free", "Other"] },
-    { id: 3, question: "How many meals do you typically eat per day?", type: "select", options: ["1-2", "3-4", "5+"] },
-    { id: 4, question: "Do you have any food allergies?", type: "text", placeholder: "If yes, please specify" },
-    { id: 5, question: "How would you rate your cooking skills?", type: "select", options: ["Beginner", "Intermediate", "Advanced"] },
-    { id: 6, question: "Are you interested in meal prep?", type: "select", options: ["Yes", "No", "Maybe"] },
+const questions = [
+  {
+    id: 1,
+    question: "What is your primary diet goal?",
+    type: "select",
+    options: ["Weight Loss", "Weight Gain", "Maintain Weight", "Improve Health"],
+  },
+  {
+    id: 2,
+    question: "Do you have any dietary restrictions?",
+    type: "select",
+    options: ["None", "Vegetarian", "Vegan", "Gluten-free", "Lactose-free", "Other"],
+  },
+  {
+    id: 3,
+    question: "How many meals do you typically eat per day?",
+    type: "select",
+    options: ["1-2", "3-4", "5+"],
+  },
+  {
+    id: 4,
+    question: "Do you have any food allergies?",
+    type: "text",
+    placeholder: "If yes, please specify",
+  },
+  {
+    id: 5,
+    question: "How would you rate your cooking skills?",
+    type: "select",
+    options: ["Beginner", "Intermediate", "Advanced"],
+  },
+  {
+    id: 6,
+    question: "Are you interested in meal prep?",
+    type: "select",
+    options: ["Yes", "No", "Maybe"],
+  },
 ];
 
-const proQuestions = [
-    ...basicQuestions,
-    { id: 7, question: "What's your daily calorie intake goal?", type: "text", placeholder: "Approximate number" },
-    { id: 8, question: "What's your preferred macronutrient split?", type: "select", options: ["High-carb", "High-protein", "High-fat", "Balanced", "Not sure"] },
-    { id: 9, question: "Do you track your food intake?", type: "select", options: ["Yes, regularly", "Sometimes", "No, but interested", "No, not interested"] },
-    { id: 10, question: "Are you following any specific diet?", type: "select", options: ["None", "Keto", "Paleo", "Mediterranean", "Intermittent Fasting", "Other"] },
-    { id: 11, question: "How often do you eat out or order takeaway?", type: "select", options: ["Rarely", "1-2 times a week", "3-5 times a week", "Almost daily"] },
-    { id: 12, question: "Do you consume supplements?", type: "select", options: ["Yes", "No", "Sometimes"] },
-    { id: 13, question: "How much water do you drink daily (in liters)?", type: "text" },
-    { id: 14, question: "Do you have any specific foods you want to include more in your diet?", type: "text", placeholder: "E.g., leafy greens, lean proteins" },
-    { id: 15, question: "Are there any foods you're trying to avoid or reduce?", type: "text", placeholder: "E.g., processed foods, sugary drinks" },
-    { id: 16, question: "How does your diet change on weekends vs. weekdays?", type: "text", placeholder: "Briefly describe any differences" },
-];
 
-function DietQuestionnaireCarousel({ plan = "basic" }) {
+function DietQuestionnaireCarousel() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState({});
 
   const router = useRouter();
 
-  const questions = plan === "pro" ? proQuestions : basicQuestions;
 
   const handleInputChange = (id, value) => {
     setAnswers(prev => ({ ...prev, [id]: value }));
@@ -67,8 +82,8 @@ function DietQuestionnaireCarousel({ plan = "basic" }) {
   const isInputFilled = answers[currentQuestion.id] && answers[currentQuestion.id].trim() !== "";
 
   return (
-    <div className="flex items-center justify-center w-screen h-screen">
-      <Card className="w-full h-full mx-auto overflow-hidden rounded-none">
+    <div className="flex items-center justify-center w-screen h-screen p-3">
+      <Card className="w-full h-full mx-auto overflow-hidden rounded-md p-3 shadow-emerald-500">
         <CardHeader className="h-1/6">
           <CardTitle className="text-2xl font-bold text-center">
           what do you wanna eat this week 🍪
@@ -109,7 +124,7 @@ function DietQuestionnaireCarousel({ plan = "basic" }) {
               variant="outline"
               className="w-24"
             >
-              <ChevronLeft className="w-4 h-4 mr-2" /> Previous
+              <ChevronLeft className="w-4 h-4 mr-2 text-black text-center" /> Previous
             </Button>
             {isLastQuestion ? (
               <Button
@@ -125,7 +140,7 @@ function DietQuestionnaireCarousel({ plan = "basic" }) {
                 disabled={!isInputFilled}
                 className="w-24"
               >
-                Next <ChevronRight className="w-4 h-4 ml-2" />
+                Next <ChevronRight className="w-4 h-4 ml-2 text-black text-center"  />
               </Button>
             )}
           </div>

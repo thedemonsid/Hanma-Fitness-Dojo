@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const basicQuestions = [
+const questions = [
   {
     id: 1,
     question: "What is your primary fitness goal?",
@@ -40,7 +40,7 @@ const basicQuestions = [
     id: 4,
     question: "What type of workouts do you prefer?",
     type: "select",
-    options: ["Cardio", "Strength Training", "HIIT", "Yoga", "Mixed"],
+    options: ["Cardio", "Strength Training", "HIIT", "Yoga", "Mixed","Muscle-Building"],
   },
   {
     id: 5,
@@ -54,71 +54,10 @@ const basicQuestions = [
     type: "select",
     options: ["Gym", "Home Equipment", "Both", "Neither"],
   },
+
 ];
 
-const proQuestions = [
-  ...basicQuestions,
-  {
-    id: 7,
-    question: "What's your target workout duration (in minutes)?",
-    type: "text",
-    placeholder: "e.g., 30, 45, 60",
-  },
-  {
-    id: 8,
-    question: "Are you interested in tracking your workouts?",
-    type: "select",
-    options: ["Yes", "No", "Maybe"],
-  },
-  {
-    id: 9,
-    question: "Do you prefer morning or evening workouts?",
-    type: "select",
-    options: ["Morning", "Evening", "No preference"],
-  },
-  {
-    id: 10,
-    question: "Are you interested in incorporating rest days?",
-    type: "select",
-    options: ["Yes", "No", "Not sure"],
-  },
-  {
-    id: 11,
-    question: "How important is variety in your workout routine?",
-    type: "select",
-    options: ["Very important", "Somewhat important", "Not important"],
-  },
-  {
-    id: 12,
-    question: "Are you interested in working with a personal trainer?",
-    type: "select",
-    options: ["Yes", "No", "Maybe"],
-  },
-  {
-    id: 13,
-    question: "What's your preferred cardio activity?",
-    type: "select",
-    options: ["Running", "Cycling", "Swimming", "Rowing", "Other"],
-  },
-  {
-    id: 14,
-    question: "Do you have any specific muscle groups you want to focus on?",
-    type: "text",
-    placeholder: "e.g., core, upper body, legs",
-  },
-  {
-    id: 15,
-    question: "Are you interested in group fitness classes?",
-    type: "select",
-    options: ["Yes", "No", "Maybe"],
-  },
-  {
-    id: 16,
-    question: "How do you plan to stay motivated?",
-    type: "text",
-    placeholder: "e.g., setting goals, workout buddy, rewards",
-  },
-];
+
 import { useRouter } from "next/navigation";
 function WorkoutQuestionnaireCarousel({ plan = "basic" }) {
   let router = useRouter();
@@ -142,7 +81,7 @@ function WorkoutQuestionnaireCarousel({ plan = "basic" }) {
     16: "",
   });
 
-  const questions = plan === "pro" ? proQuestions : basicQuestions;
+
 
   const handleInputChange = (id, value) => {
     setAnswers((prev) => ({ ...prev, [id]: value }));
@@ -175,10 +114,10 @@ function WorkoutQuestionnaireCarousel({ plan = "basic" }) {
     answers[currentQuestion.id] && answers[currentQuestion.id].trim() !== "";
 
   return (
-    <div className="flex items-center justify-center w-screen h-screen">
-      <Card className="w-full h-full mx-auto overflow-hidden rounded-none">
+    <div className="flex items-center justify-center w-screen h-svh p-4 shadow-md shadow-green-300" >
+      <Card className="w-full h-full mx-auto overflow-hidden rounded-sm p-3">
         <CardHeader className="h-1/6">
-          <CardTitle className="text-2xl font-bold text-center">
+          <CardTitle className="text-2xl font-bold text-center mt-2">
             Build Your Perfect Workout Plan 💪
           </CardTitle>
         </CardHeader>
