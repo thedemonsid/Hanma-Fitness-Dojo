@@ -3,24 +3,30 @@ import Markdown from "@/components/markdownrenderer";
 import React, { useState, useEffect } from "react";
 import getPage from "@/utils/getMealByUserId";
 import Loading from "@/app/loading";
-
-function PersonalDietPage({ params }) {
+import { redirect } from "next/navigation";
+import { useSession } from "next-auth/react";
+function PersonalDietPage() {
   const [content, setContent] = useState("");
+  const { data: session, status } = useSession();
 
   useEffect(() => {
+    // Redirect if not signed in and session status is "unauthenticated"
+    if (status === "unauthenticated") {
+      redirect("/api/auth/signin");
+    }
+  }, [status]);
+  useEffect(() => {
     // Fetching meal data by user ID
-    getPage(params.userId).then((data) => {
-      console.log(data); // Logging the fetched data for debugging
+    getPage(session?.user?.id).then((data) => {
+      console.log(data);
       setContent(data); // Setting the fetched data to state
     });
-  }, [params.userId]); // Dependency array to re-run effect when userId changes
+  }, [session?.user?.id]);
 
   if (!content) {
-    // Display loading component if content is not yet fetched
     return <Loading />;
   }
 
-  // Rendering the Markdown content if available
   return (
     <div>
       <Markdown markdownText={content.data} />

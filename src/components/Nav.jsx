@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -10,9 +10,7 @@ export default function Nav() {
   const { data: session } = useSession();
   const router = useRouter();
   const handleSignInClick = () => {
-   signIn(null, { callbackUrl: "/OnBoardForm" });
-   
-   
+    signIn(null, { callbackUrl: "/OnBoardForm" });
   };
   const handleSignOutClick = () => {
     router.push("/api/auth/signout");
@@ -57,7 +55,7 @@ export default function Nav() {
             </Link>
             <Link
               className="flex items-center font-medium transition-colors text-md hover:underline"
-              href={`/Diet/your-meal/${session?.user?.id}`}
+              href={`/Diet/your-meal`}
             >
               Diet Planner
             </Link>
@@ -224,7 +222,7 @@ export default function Nav() {
               Gym-Planner
             </Link>
             <Link
-              href={`/Diet/your-meal/${session?.user?.id}`}
+              href={`/Diet/your-meal`}
               className="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
             >
               Meal Planner
