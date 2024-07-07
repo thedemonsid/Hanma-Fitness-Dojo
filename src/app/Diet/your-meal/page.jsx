@@ -17,13 +17,15 @@ function PersonalDietPage() {
   }, [status]);
   useEffect(() => {
     // Fetching meal data by user ID
-    if (session?.user?.filledForms.diet) {
-      getPage(session?.user?.id).then((data) => {
-        console.log(data);
-        setContent(data); // Setting the fetched data to state
-      });
-    } else {
-      redirect("/Diet/Dietinfoform");
+    if (session) {
+      if (session?.user?.filledForms.diet) {
+        getPage(session?.user?.id).then((data) => {
+          console.log(data);
+          setContent(data); // Setting the fetched data to state
+        });
+      } else {
+        redirect("/Diet/Dietinfoform");
+      }
     }
   }, [session?.user?.id]);
 

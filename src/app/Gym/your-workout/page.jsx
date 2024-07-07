@@ -18,13 +18,15 @@ function PersonalWorkoutPage() {
   }, [status]);
   useEffect(() => {
     // Fetching Exercise data by user ID
-    if (session?.user?.filledForms.diet) {
-      getExercise(session?.user?.id).then((data) => {
-        console.log(data);
-        setContent(data); // Setting the fetched data to state
-      });
-    } else {
-      redirect("/Gym/workoutinfo");
+    if (session) {
+      if (session?.user?.filledForms.diet) {
+        getExercise(session?.user?.id).then((data) => {
+          console.log(data);
+          setContent(data); // Setting the fetched data to state
+        });
+      } else {
+        redirect("/Gym/workoutinfo");
+      }
     }
   }, [session?.user?.id]);
 
