@@ -17,10 +17,14 @@ function PersonalDietPage() {
   }, [status]);
   useEffect(() => {
     // Fetching meal data by user ID
-    getPage(session?.user?.id).then((data) => {
-      console.log(data);
-      setContent(data); // Setting the fetched data to state
-    });
+    if (session?.user?.filledForms.diet) {
+      getPage(session?.user?.id).then((data) => {
+        console.log(data);
+        setContent(data); // Setting the fetched data to state
+      });
+    } else {
+      redirect("/Diet/Dietinfoform");
+    }
   }, [session?.user?.id]);
 
   if (!content) {
