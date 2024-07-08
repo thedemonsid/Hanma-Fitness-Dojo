@@ -12,9 +12,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="bg-gradient-to-t from-green-200 to-green-100">
+    <html lang="en" className="bg-background text-foreground">
       <Provider>
-        <body className={inter.className}>
+        <body className={inter.className} >
           <Nav></Nav>
           {children}
           <Toaster/>

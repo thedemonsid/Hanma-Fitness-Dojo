@@ -1,48 +1,55 @@
-
-"use client"
+"use client";
 import React, { useEffect, useState } from 'react';
 
-const Loading = () => {
-  const [dots, setDots] = useState([]);
-  const totalDots = 5;
+const FitnessLoader = () => {
+  const [activeEmoji, setActiveEmoji] = useState(0);
+  const [loadingText, setLoadingText] = useState('');
+
+  const fitnessEmojis = ['🏋️', '🏃', '🧘', '🚴', '🤸'];
+  const loadingTexts = [
+    'Asking AI for fitness tips...',
+    'Brewing pre-workout coffee...',
+    'Warming up the algorithms...',
+    'Calculating optimal rep ranges...',
+    'Stretching the servers...',
+    'Loading your personal trainer...',
+    'Preparing your virtual gym...'
+  ];
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const newDots = [...dots];
-      const nextDotIndex = newDots.findIndex((dot) => dot === 0);
+    const emojiInterval = setInterval(() => {
+      setActiveEmoji((prev) => (prev + 1) % fitnessEmojis.length);
+    }, 500);
 
-      if (nextDotIndex === -1) {
-        newDots.push(1);
-      } else {
-        newDots[nextDotIndex] = 1;
-        const prevDotIndex = (nextDotIndex + totalDots - 1) % totalDots;
-        newDots[prevDotIndex] = 2;
-      }
+    const textInterval = setInterval(() => {
+      setLoadingText(loadingTexts[Math.floor(Math.random() * loadingTexts.length)]);
+    }, 2000);
 
-      setDots(newDots);
-    }, 100);
-
-    return () => clearInterval(interval);
-  }, [dots]);
+    return () => {
+      clearInterval(emojiInterval);
+      clearInterval(textInterval);
+    };
+  }, []);
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-800">
-      <div className="flex space-x-2">
-        {Array.from({ length: totalDots }, (_, i) => (
+    <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-blue-500 to-purple-600">
+      <div className="flex space-x-4 mb-8">
+        {fitnessEmojis.map((emoji, index) => (
           <div
-            key={i}
-            className={`w-4 h-4 rounded-full ${
-              dots[i] === 1
-                ? 'bg-yellow-500 animate-jump'
-                : dots[i] === 2
-                ? 'bg-yellow-300'
-                : 'bg-yellow-100'
+            key={index}
+            className={`text-4xl transform transition-transform duration-200 ${
+              index === activeEmoji ? 'scale-150 translate-y--2' : 'scale-100'
             }`}
-          />
+          >
+            {emoji}
+          </div>
         ))}
+      </div>
+      <div className="text-white text-xl font-semibold animate-pulse">
+        {loadingText}
       </div>
     </div>
   );
 };
 
-export default Loading;
+export default FitnessLoader;

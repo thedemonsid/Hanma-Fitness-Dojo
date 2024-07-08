@@ -1,0 +1,7 @@
+img size
+dropdowm
+navbar
+sign in button
+home page 
+loader
+

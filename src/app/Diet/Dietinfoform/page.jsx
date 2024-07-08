@@ -3,7 +3,7 @@ import React from 'react'
 
 function DietInfoPage() {
   return (
-    <div>
+    <div className='bg-primary'>
         <DietQuestionnaireCarousel></DietQuestionnaireCarousel>
     </div>
   )

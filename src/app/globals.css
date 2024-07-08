@@ -1,53 +1,57 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: 160 100% 95%;
-  --foreground: 160 5% 10%;
-  --card: 160 50% 90%;
-  --card-foreground: 160 5% 15%;
-  --popover: 160 100% 95%;
-  --popover-foreground: 160 100% 10%;
-  --primary: 160 88% 58%;
+
+:root  {
+  --background: 217 100% 95%;
+  --foreground: 217 5% 10%;
+  --card: 217 50% 90%;
+  --card-foreground: 217 5% 15%;
+  --popover: 217 100% 95%;
+  --popover-foreground: 217 100% 10%;
+  --primary: 217 45% 27%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 160 30% 70%;
+  --secondary: 217 30% 70%;
   --secondary-foreground: 0 0% 0%;
-  --muted: 122 30% 85%;
-  --muted-foreground: 160 5% 40%;
-  --accent: 122 30% 80%;
-  --accent-foreground: 160 5% 15%;
-  --destructive: 0 100% 49%;
-  --destructive-foreground: 160 5% 90%;
-  --border: 160 30% 50%;
-  --input: 160 30% 49%;
-  --ring: 160 88% 58%;
-  --radius: 0.75rem;
+  --muted: 179 30% 85%;
+  --muted-foreground: 217 5% 35%;
+  --accent: 179 30% 80%;
+  --accent-foreground: 217 5% 15%;
+  --destructive: 0 100% 30%;
+  --destructive-foreground: 217 5% 90%;
+  --border: 217 30% 50%;
+  --input: 217 30% 26%;
+  --ring: 217 45% 27%;
+  --radius: 0.5rem;
 }
-.dark {
-  --background: 160 50% 10%;
-  --foreground: 160 5% 90%;
-  --card: 160 50% 10%;
-  --card-foreground: 160 5% 90%;
-  --popover: 160 50% 5%;
-  --popover-foreground: 160 5% 90%;
-  --primary: 160 88% 58%;
+.dark  {
+  --background: 217 50% 10%;
+  --foreground: 217 5% 90%;
+  --card: 217 50% 10%;
+  --card-foreground: 217 5% 90%;
+  --popover: 217 50% 5%;
+  --popover-foreground: 217 5% 90%;
+  --primary: 217 45% 27%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 160 30% 20%;
+  --secondary: 217 30% 20%;
   --secondary-foreground: 0 0% 100%;
-  --muted: 122 30% 25%;
-  --muted-foreground: 160 5% 60%;
-  --accent: 122 30% 25%;
-  --accent-foreground: 160 5% 90%;
-  --destructive: 0 100% 49%;
-  --destructive-foreground: 160 5% 90%;
-  --border: 160 30% 49%;
-  --input: 160 30% 49%;
-  --ring: 160 88% 58%;
-  --radius: 0.75rem;
+  --muted: 179 30% 25%;
+  --muted-foreground: 217 5% 60%;
+  --accent: 179 30% 25%;
+  --accent-foreground: 217 5% 90%;
+  --destructive: 0 100% 30%;
+  --destructive-foreground: 217 5% 90%;
+  --border: 217 30% 26%;
+  --input: 217 30% 26%;
+  --ring: 217 45% 27%;
+  --radius: 0.5rem;
 }
+
+
 
 .pgcolor {
   color: orange !important;
