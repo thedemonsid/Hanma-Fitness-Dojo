@@ -18,6 +18,7 @@ model User {
   age              Int?
   gender           String?
   weight           Float?
+  fitnessLevel     fitnessLevel  @default(FAT)
   intensityLevel   Intensity?    @default(MEDIUM)
   dietPreference   String?
   height           Float?
@@ -42,6 +43,13 @@ enum UserRole {
   USER
   TRAINER
   ADMIN
+}
+
+enum fitnessLevel {
+  SKINNY
+  FIT
+  FAT
+  OBESE
 }
 
 enum Region {
