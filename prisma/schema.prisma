@@ -11,30 +11,31 @@ datasource db {
 }
 
 model User {
-  id               String        @id @default(cuid())
+  id               String          @id @default(cuid())
   name             String?
-  email            String        @unique
+  email            String          @unique
   imageUrl         String?
   age              Int?
   gender           String?
   weight           Float?
-  fitnessLevel     fitnessLevel  @default(FAT)
-  intensityLevel   Intensity?    @default(MEDIUM)
+  fitnessLevel     fitnessLevel    @default(FAT)
+  intensityLevel   Intensity?      @default(MEDIUM)
   dietPreference   String?
   height           Float?
-  region           Region?       @default(INDIAN)
-  fitnessGoal      String?       @default("Overall Fitness")
-  healthConditions String?       @default("Healthy")
-  frequency        String?       @default("3 Days a week")
-  ExerciseType     ExerciseType  @default(Mixed)
-  role             UserRole      @default(USER)
-  createdAt        DateTime      @default(now()) @map(name: "created_at")
-  updatedAt        DateTime      @updatedAt @map(name: "updated_at")
+  region           Region?         @default(INDIAN)
+  fitnessGoal      String?         @default("Overall Fitness")
+  equipmentAccess  EquipmentAccess @default(Both)
+  healthConditions String?         @default("Healthy")
+  frequency        String?         @default("3 Days a week")
+  ExerciseType     ExerciseType    @default(Mixed)
+  role             UserRole        @default(USER)
+  createdAt        DateTime        @default(now()) @map(name: "created_at")
+  updatedAt        DateTime        @updatedAt @map(name: "updated_at")
   workoutPlan      WorkoutPlan[]
   dietPlans        DietPlan[]
   aiWorkout        String? // AI generated workout but temporary need to change
   aiDiet           String? // AI generated diet but temporary need to change 
-  filledForms      Json?         @default("{\"onboarding\": false, \"workout\": false, \"diet\": false}")
+  filledForms      Json?           @default("{\"onboarding\": false, \"workout\": false, \"diet\": false}")
 
   @@map(name: "users")
 }
@@ -50,6 +51,13 @@ enum fitnessLevel {
   FIT
   FAT
   OBESE
+}
+
+enum EquipmentAccess {
+  Gym
+  HomeEquipment
+  Both
+  Neither
 }
 
 enum Region {
