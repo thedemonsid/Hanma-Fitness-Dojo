@@ -1,61 +1,51 @@
-"use client"
-import React, { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useRouter } from "next/navigation";
+"use client";
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const questions = [
   {
-    id: 1,
-    question: "What is your primary diet goal?",
+    id: 'fitnessGoal',
+    question: "What is your primary fitness goal?",
     type: "select",
     options: ["Weight Loss", "Weight Gain", "Maintain Weight", "Improve Health"],
+    description: "Choose the primary goal for your fitness journey",
   },
   {
-    id: 2,
-    question: "Do you have any dietary restrictions?",
+    id: 'dietPreference',
+    question: "Do you have any dietary Preferences?",
     type: "select",
     options: ["None", "Vegetarian", "Vegan", "Gluten-free", "Lactose-free", "Other"],
+    description: "Select your dietary restrictions if any, or select 'None'",
   },
   {
-    id: 3,
-    question: "How many meals do you typically eat per day?",
-    type: "select",
-    options: ["1-2", "3-4", "5+"],
-  },
-  {
-    id: 4,
-    question: "Do you have any food allergies?",
-    type: "text",
-    placeholder: "If yes, please specify",
-  },
-  {
-    id: 5,
-    question: "How would you rate your cooking skills?",
-    type: "select",
-    options: ["Beginner", "Intermediate", "Advanced"],
-  },
-  {
-    id: 6,
-    question: "Are you interested in meal prep?",
-    type: "select",
-    options: ["Yes", "No", "Maybe"],
-  },
+    id: 'region',
+    question: "Where are you located?",
+    type: "Text",
+   
+  }
+
 ];
-
-
-function DietQuestionnaireCarousel() {
+const DietQuestionnaireCarousel= () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState({});
-
   const router = useRouter();
-
+  const [answers, setAnswers] = useState({
+fitnessGoal: '',
+dietPreference: '',
+region: '',
+  });
 
   const handleInputChange = (id, value) => {
-    setAnswers(prev => ({ ...prev, [id]: value }));
+    setAnswers((prev) => ({ ...prev, [id]: value }));
   };
 
   const goToNextQuestion = () => {
@@ -71,83 +61,93 @@ function DietQuestionnaireCarousel() {
   };
 
   const handleSubmit = () => {
-    const userData = Object.entries(answers).map(([key, value]) => `${key}: ${value}`).join(", ");
-    console.log("userdata of Diet info:", userData);
-    router.push(`/Gym/your-workout`);
-    
+    console.log('User data:', answers);
+    router.push('/Diet/Dietinfoform');
   };
 
   const currentQuestion = questions[currentQuestionIndex];
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
-  const isInputFilled = answers[currentQuestion.id] && answers[currentQuestion.id].trim() !== "";
+  const isInputFilled = answers[currentQuestion.id] && answers[currentQuestion.id].trim() !== '';
 
   return (
-    <div className="flex items-center justify-center w-screen h-screen p-3">
-      <Card className="w-full h-full mx-auto overflow-hidden rounded-md p-3 shadow-emerald-500">
-        <CardHeader className="h-1/6">
-          <CardTitle className="text-2xl font-bold text-center">
-          what do you wanna eat this week 🍪
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-col justify-between h-5/6">
-          <div className="flex flex-col items-center justify-center flex-grow w-full p-6">
-            <h2 className="mb-6 text-2xl font-semibold text-center">{currentQuestion.question}</h2>
-            {currentQuestion.type === "select" ? (
-              <Select 
-                onValueChange={(value) => handleInputChange(currentQuestion.id, value)} 
-                className="w-full max-w-md"
-                value={answers[currentQuestion.id] || ""}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select an option" />
-                </SelectTrigger>
-                <SelectContent>
-                  {currentQuestion.options.map((option) => (
-                    <SelectItem key={option} value={option}>{option}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            ) : (
-              <Input
-                type="text"
-                placeholder={currentQuestion.placeholder}
-                onChange={(e) => handleInputChange(currentQuestion.id, e.target.value)}
-                value={answers[currentQuestion.id] || ""}
-                className="w-full max-w-md"
-              />
-            )}
+    <div className="min-h-screen flex flex-col bg-gradient-to-r from-blue-50 to-indigo-100 ">
+      <div className="flex-grow flex flex-col justify-center px-4 py-12 sm:px-6 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md ">
+          <h1 className="text-3xl font-extrabold text-primary text-center mb-8 font-bona">
+            Let&apos;s get started with your Diet plan 
+          </h1>
+        </div>
+
+        <div className="w-9/12 mx-auto  bg-white shadow-2xl overflow-hidden sm:rounded-lg border-border border-2 px-auto">
+          <div className="px-4 py-8 sm:p-10">
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-gray-600 text-center mb-4 font-bona">
+                {currentQuestion.question}
+              </h2>
+              {currentQuestion.type === 'select' ? (
+                <Select
+                  onValueChange={(value) => handleInputChange(currentQuestion.id, value)}
+                  value={answers[currentQuestion.id] || ''}
+                >
+                  <SelectTrigger className="w-full text-md p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 mb-6 font-bona ">
+                    <SelectValue placeholder="Select an option" />
+                  </SelectTrigger>
+                  <SelectContent className="font-bona">
+                    {currentQuestion.options && currentQuestion.options.map((option) => (
+                      <SelectItem key={option} value={option} className="text-sm">
+                        {option}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              ) : (
+                <Input
+                  type={currentQuestion.type}
+                  placeholder={currentQuestion.placeholder || 'Enter your answer'}
+                  onChange={(e) => handleInputChange(currentQuestion.id, e.target.value)}
+                  value={answers[currentQuestion.id] || ''}
+                  className="w-full text-md p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 font-bona "
+                />
+              )}
+              <p className="text-sm text-gray-500 text-center mt-2 font-bona">{currentQuestion.description}</p>
+            </div>
           </div>
-          <div className="flex justify-between w-full p-6">
-            <Button
-              onClick={goToPreviousQuestion}
-              disabled={currentQuestionIndex === 0}
-              variant="outline"
-              className="w-24"
-            >
-              <ChevronLeft className="w-4 h-4 mr-2 text-black text-center" /> Previous
-            </Button>
-            {isLastQuestion ? (
+          <div className="bg-gray-50 px-4 py-6 sm:px-10 font-bona">
+            <div className="flex justify-between items-center">
               <Button
-                onClick={handleSubmit}
-                disabled={!isInputFilled}
-                className="w-24"
+                onClick={goToPreviousQuestion}
+                disabled={currentQuestionIndex === 0}
+                variant="outline"
+                className="w-32 text-sm"
               >
-                Submit
+                <ChevronLeft className="w-4 h-4 mr-2" /> Previous
               </Button>
-            ) : (
-              <Button
-                onClick={goToNextQuestion}
-                disabled={!isInputFilled}
-                className="w-24"
-              >
-                Next <ChevronRight className="w-4 h-4 ml-2 text-black text-center"  />
-              </Button>
-            )}
+              <div className="text-sm text-gray-500">
+                Question {currentQuestionIndex + 1} of {questions.length}
+              </div>
+              {isLastQuestion ? (
+                <Button
+                  onClick={handleSubmit}
+                  disabled={!isInputFilled}
+                  className="w-32 text-sm bg-primary hover:bg-primary hover:text-white font-bona"
+                >
+                  Submit
+                </Button>
+              ) : (
+                <Button
+                  onClick={goToNextQuestion}
+                  disabled={!isInputFilled}
+                  className="w-32 text-sm font-bona"
+                >
+                  Next <ChevronRight className="w-4 h-4 ml-2" />
+                </Button>
+              )}
+            </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default DietQuestionnaireCarousel;

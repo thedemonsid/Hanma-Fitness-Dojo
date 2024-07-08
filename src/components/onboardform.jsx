@@ -1,105 +1,70 @@
 "use client";
-import React, { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useRouter  } from "next/navigation";
+} from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const basicQuestions = [
-  { id: 1, question: "What is your Name", type: "text" },
-  { id: 2, question: "What is your Age", type: "text" },
-  { id: 3, question: "What is your Height (in centimeters)", type: "number" },
+const questions = [
   {
-    id: 4,
-    question: "What is your fitness goal?",
-    type: "select",
-    options: ["Weight Loss", "Muscle Gain", "General Fitness"],
+    id: 'name',
+    question: 'What is your name?',
+    type: 'text',
+    description: 'Please enter your full name',
   },
   {
-    id: 5,
-    question: "How many days a week can you commit to exercising?",
-    type: "select",
-    options: ["1-2", "3-4", "5+"],
+    id: 'age',
+    question: 'What is your age?',
+    type: 'number',
+    description: 'Enter your age in years',
   },
   {
-    id: 6,
-    question: "Do you have any injuries or health conditions?",
-    type: "text",
-    placeholder: "If yes, please specify",
+    id: 'height',
+    question: 'What is your height?',
+    type: 'number',
+    description: 'Enter your height in centimeters',
+  },
+  {
+    id: 'fitnessGoal',
+    question: 'What is your fitness goal?',
+    type: 'select',
+    options: ['Weight Loss', 'Muscle Gain', 'General Fitness'],
+    description: 'Choose the primary goal for your fitness journey',
+  },
+  {
+    id: 'exerciseFrequency',
+    question: 'How many days a week can you exercise?',
+    type: 'select',
+    options: ['1-2', '3-4', '5+'],
+    description: 'Select the number of days you can dedicate to working out',
+  },
+  {
+    id: 'healthConditions',
+    question: 'Any injuries or health conditions?',
+    type: 'text',
+    description: 'Mention any health concerns that may affect your workout',
+    placeholder: 'If yes, please specify',
   },
 ];
 
-const midQuestions = [
-  ...basicQuestions,
-  {
-    id: 7,
-    question: "What's your current workout routine?",
-    type: "text",
-    placeholder: "Describe briefly",
-  },
-  {
-    id: 8,
-    question: "What's your preferred type of exercise?",
-    type: "select",
-    options: ["Cardio", "Strength Training", "Flexibility", "Yoga"],
-  },
-];
-
-const proQuestions = [
-  ...midQuestions,
-  {
-    id: 9,
-    question: "What's your daily calorie intake?",
-    type: "text",
-    placeholder: "Approximate number",
-  },
-  {
-    id: 10,
-    question: "Do you follow any specific diet?",
-    type: "select",
-    options: ["None", "Vegetarian", "Non-vegetarian", "Vegan", "Other"],
-  },
-  {
-    id: 11,
-    question: "What's your body fat percentage?",
-    type: "text",
-    placeholder: "If known",
-  },
-];
-
-function GymQuestionnaireCarousel({ plan = "basic" }) {
+const GymQuestionnaire = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const router=useRouter();
+  const router = useRouter();
   const [answers, setAnswers] = useState({
-    name: "",
-    age: "",
-    height: "",
-    fitnessGoal: "",
-    exerciseFrequency: "",
-    healthConditions: "",
+    name: '',
+    age: '',
+    height: '',
+    fitnessGoal: '',
+    exerciseFrequency: '',
+    healthConditions: '',
   });
- 
-  const getQuestions = () => {
-    switch (plan) {
-      case "pro":
-        return proQuestions;
-      case "mid":
-        return midQuestions;
-      default:
-        return basicQuestions;
-    }
-  };
-
-  const questions = getQuestions();
-
   const handleInputChange = (id, value) => {
     setAnswers((prev) => ({ ...prev, [id]: value }));
   };
@@ -117,93 +82,93 @@ function GymQuestionnaireCarousel({ plan = "basic" }) {
   };
 
   const handleSubmit = () => {
-    const userData = Object.values(answers).join(" ");
-    console.log("userdata of onboard:", userData);
-    router.push(`/Diet/Dietinfoform`);
-
+    console.log('User data:', answers);
+    router.push('/Diet/Dietinfoform');
   };
 
   const currentQuestion = questions[currentQuestionIndex];
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
-  const isInputFilled =
-    answers[currentQuestion.id] && answers[currentQuestion.id].trim() !== "";
+  const isInputFilled = answers[currentQuestion.id] && answers[currentQuestion.id].trim() !== '';
 
   return (
-    
-    <div className="flex items-center justify-center w-screen h-screen ">
-      <Card className="w-full h-full  mx-auto overflow-hidden">
-        <CardHeader className="h-1/6">
-          <CardTitle className="text-2xl font-bold text-center">
+    <div className="min-h-screen flex flex-col bg-gradient-to-r from-blue-50 to-indigo-100 ">
+      <div className="flex-grow flex flex-col justify-center px-4 py-12 sm:px-6 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md ">
+          <h1 className="text-3xl font-extrabold text-primary text-center mb-8 font-bona">
             Tell us about yourself
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-col justify-between h-5/6">
-          <div className="flex flex-col items-center justify-center flex-grow w-full p-6">
-            <h2 className="mb-6 text-2xl font-semibold text-center">
-              {currentQuestion.question}
-            </h2>
-            {currentQuestion.type === "select" ? (
-              <Select
-                onValueChange={(value) =>
-                  handleInputChange(currentQuestion.id, value)
-                }
-                className="w-full max-w-md"
-                value={answers[currentQuestion.id] || ""}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select an option" />
-                </SelectTrigger>
-                <SelectContent>
-                  {currentQuestion.options.map((option) => (
-                    <SelectItem key={option} value={option}>
-                      {option}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            ) : (
-              <Input
-                type="text"
-                placeholder={currentQuestion.placeholder}
-                onChange={(e) =>
-                  handleInputChange(currentQuestion.id, e.target.value)
-                }
-                value={answers[currentQuestion.id] || ""}
-                className="w-full max-w-md"
-              />
-            )}
+          </h1>
+        </div>
+
+        <div className="w-9/12 mx-auto  bg-white shadow-2xl overflow-hidden sm:rounded-lg border-border border-2">
+          <div className="px-4 py-8 sm:p-10">
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-gray-600 text-center mb-4 font-bona">
+                {currentQuestion.question}
+              </h2>
+              {currentQuestion.type === 'select' ? (
+                <Select
+                  onValueChange={(value) => handleInputChange(currentQuestion.id, value)}
+                  value={answers[currentQuestion.id] || ''}
+                >
+                  <SelectTrigger className="w-full text-lg p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 mb-6 ">
+                    <SelectValue placeholder="Select an option" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {currentQuestion.options && currentQuestion.options.map((option) => (
+                      <SelectItem key={option} value={option} className="text-lg">
+                        {option}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              ) : (
+                <Input
+                  type={currentQuestion.type}
+                  placeholder={currentQuestion.placeholder || 'Enter your answer'}
+                  onChange={(e) => handleInputChange(currentQuestion.id, e.target.value)}
+                  value={answers[currentQuestion.id] || ''}
+                  className="w-full text-lg p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                />
+              )}
+              <p className="text-sm text-gray-500 text-center mt-2">{currentQuestion.description}</p>
+            </div>
           </div>
-          <div className="flex justify-between w-full p-6">
-            <Button
-              onClick={goToPreviousQuestion}
-              disabled={currentQuestionIndex === 0}
-              variant="outline"
-              className="w-24"
-            >
-              <ChevronLeft className="w-4 h-4 mr-2" /> Previous
-            </Button>
-            {isLastQuestion ? (
+          <div className="bg-gray-50 px-4 py-6 sm:px-10">
+            <div className="flex justify-between items-center">
               <Button
-                onClick={handleSubmit}
-                disabled={!isInputFilled}
-                className="w-24"
+                onClick={goToPreviousQuestion}
+                disabled={currentQuestionIndex === 0}
+                variant="outline"
+                className="w-32 text-sm"
               >
-                Submit
+                <ChevronLeft className="w-4 h-4 mr-2" /> Previous
               </Button>
-            ) : (
-              <Button
-                onClick={goToNextQuestion}
-                disabled={!isInputFilled}
-                className="w-24"
-              >
-                Next <ChevronRight className="w-4 h-4 ml-2" />
-              </Button>
-            )}
+              <div className="text-sm text-gray-500">
+                Question {currentQuestionIndex + 1} of {questions.length}
+              </div>
+              {isLastQuestion ? (
+                <Button
+                  onClick={handleSubmit}
+                  disabled={!isInputFilled}
+                  className="w-32 text-sm bg-green-500 hover:bg-green-600"
+                >
+                  Submit
+                </Button>
+              ) : (
+                <Button
+                  onClick={goToNextQuestion}
+                  disabled={!isInputFilled}
+                  className="w-32 text-sm"
+                >
+                  Next <ChevronRight className="w-4 h-4 ml-2" />
+                </Button>
+              )}
+            </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
-export default GymQuestionnaireCarousel;
+export default GymQuestionnaire;

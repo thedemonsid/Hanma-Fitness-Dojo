@@ -8,9 +8,9 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
-      <header className="container mx-auto px-4 py-20 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold mb-6">
-          Hanma-Fitness-Dojo 💪
+      <header className="container mx-auto px-6 py-20 text-center">
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 text-center">
+        💪 Hanma-Fitness-Dojo 💪
         </h1>
         <p className="text-xl md:text-3xl mb-10">
           Your AI-Powered Fitness Management Assistant 🤖
@@ -28,7 +28,7 @@ const Home = () => {
       </header>
 
       {/* Features Section */}
-      <section className="container mx-auto px-4 py-20 bg-muted">
+      <section className="container mx-auto px-4 py-20 bg-blend-darken">
         <h2 className="text-4xl font-bold text-center mb-16">Our Features</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
           <Card className="bg-card shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 rounded-xl overflow-hidden">
@@ -68,7 +68,7 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-b from-background to-muted">
+      <section className="py-20 ">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">
             Ready to Transform Your Fitness Journey? 🚀
