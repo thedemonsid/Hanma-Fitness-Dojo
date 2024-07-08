@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import {
@@ -55,9 +55,18 @@ const questions = [
     ],
   },
 ];
+import { useSession } from "next-auth/react";
 const DietQuestionnaireCarousel = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const router = useRouter();
+  const { data: session } = useSession();
+  useEffect(() => {
+    if (session) {
+      if (session?.user?.filledForms.diet) {
+        router.push("/Gym/workoutinfo");
+      }
+    }
+  }, [session]);
   const [answers, setAnswers] = useState({
     fitnessGoal: "",
     dietPreference: "",
