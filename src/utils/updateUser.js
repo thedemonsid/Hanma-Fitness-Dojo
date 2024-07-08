@@ -7,9 +7,15 @@ async function UpdateUser(userDetails) {
     return;
   }
   userDetails.id = session?.user?.id;
-  userDetails.age = parseInt(userDetails.age);
-  userDetails.weight = parseFloat(userDetails.weight);
-  userDetails.height = parseFloat(userDetails.height);
+  if (userDetails.age) {
+    userDetails.age = parseInt(userDetails.age);
+  }
+  if (userDetails.weight) {
+    userDetails.weight = parseFloat(userDetails.weight);
+  }
+  if (userDetails.height) {
+    userDetails.height = parseFloat(userDetails.height);
+  }
   console.log("User details:", userDetails);
   let config = {
     method: "put",

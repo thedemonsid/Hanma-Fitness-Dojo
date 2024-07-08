@@ -20,7 +20,7 @@ function PersonalDietPage() {
     if (session) {
       if (session?.user?.filledForms.diet) {
         getPage(session?.user?.id).then((data) => {
-          console.log(data);
+          //console.log(data);
           setContent(data); // Setting the fetched data to state
         });
       } else {
