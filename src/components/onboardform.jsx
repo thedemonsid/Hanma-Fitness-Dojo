@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import {
@@ -60,9 +60,16 @@ const questions = [
     placeholder: "If yes, please specify",
   },
 ];
-
+import { useSession } from "next-auth/react";
 const GymQuestionnaire = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const { data: session } = useSession();
+  useEffect(() => {
+    if (session)
+      if (session?.user?.filledForms.onboarding) {
+        router.push("/Diet/Dietinfoform");
+      }
+  }, [session]);
   const router = useRouter();
   const [answers, setAnswers] = useState({
     name: "",
