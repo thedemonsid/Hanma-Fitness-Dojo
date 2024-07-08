@@ -24,5 +24,3 @@ async function getMeal(userId) {
   }
 }
 export default getMeal;
-// Example usage
-//getMeal("cly00bkd00000xmz4fva5w5ax");
