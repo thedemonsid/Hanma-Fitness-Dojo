@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import {
@@ -12,6 +12,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import UpdateUser from "@/utils/updateUser";
+import { useSession } from "next-auth/react";
+import FitnessLoader from "@/app/loading";
 const questions = [
   {
     id: "fitnessGoal",
@@ -71,6 +73,14 @@ const questions = [
 const WorkoutQuestionnaireCarousel = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const router = useRouter();
+  const { data: session } = useSession();
+  useEffect(() => {
+    if (session) {
+      if (session?.user?.filledForms.workout) {
+        router.push("/Gym/your-workout");
+      }
+    }
+  }, [session]);
   const [answers, setAnswers] = useState({
     fitnessGoal: "",
     frequency: "",
@@ -105,7 +115,8 @@ const WorkoutQuestionnaireCarousel = () => {
       router.push("/");
     }
     console.log("User updated successfully");
-
+    session.user.filledForms.workout = true;
+    // console.log(session);
     router.push("/Gym/your-workout");
   };
 
@@ -113,7 +124,9 @@ const WorkoutQuestionnaireCarousel = () => {
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
   const isInputFilled =
     answers[currentQuestion.id] && answers[currentQuestion.id].trim() !== "";
-
+  if (!session) {
+    return <FitnessLoader></FitnessLoader>;
+  }
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-r from-blue-50 to-indigo-100 justify-center">
       <div className="flex-grow flex flex-col justify-center px-4 py-12 sm:px-6 lg:px-8">

@@ -56,6 +56,7 @@ const questions = [
   },
 ];
 import { useSession } from "next-auth/react";
+import FitnessLoader from "@/app/loading";
 const DietQuestionnaireCarousel = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const router = useRouter();
@@ -96,7 +97,8 @@ const DietQuestionnaireCarousel = () => {
       console.error("Failed to update user");
     }
     console.log("User updated successfully");
-
+    session.user.filledForms.diet = true;
+    // console.log(session);
     router.push("/Diet/your-meal");
   };
 
@@ -104,7 +106,9 @@ const DietQuestionnaireCarousel = () => {
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
   const isInputFilled =
     answers[currentQuestion.id] && answers[currentQuestion.id].trim() !== "";
-
+  if (!session) {
+    return <FitnessLoader></FitnessLoader>;
+  }
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-r from-blue-50 to-indigo-100 ">
       <div className="flex-grow flex flex-col justify-center px-4 py-12 sm:px-6 lg:px-8">
