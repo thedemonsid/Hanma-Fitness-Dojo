@@ -21,7 +21,7 @@ function PersonalWorkoutPage() {
     if (session) {
       if (session?.user?.filledForms.workout) {
         getExercise(session?.user?.id).then((data) => {
-          console.log(data);
+          //console.log(data);
           setContent(data); // Setting the fetched data to state
         });
       } else {

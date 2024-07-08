@@ -1,69 +1,85 @@
 "use client";
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Input } from '@/components/ui/input';
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import UpdateUser from "@/utils/updateUser";
 
 const questions = [
   {
-    id: 'name',
-    question: 'What is your name?',
-    type: 'text',
-    description: 'Please enter your full name',
+    id: "name",
+    question: "What is your name?",
+    type: "text",
+    description: "Please enter your full name",
   },
   {
-    id: 'age',
-    question: 'What is your age?',
-    type: 'number',
-    description: 'Enter your age in years',
+    id: "age",
+    question: "What is your age?",
+    type: "number",
+    description: "Enter your age in years",
   },
   {
-    id: 'height',
-    question: 'What is your height?',
-    type: 'number',
-    description: 'Enter your height in centimeters',
+    id: "height",
+    question: "What is your height?",
+    type: "number",
+    description: "Enter your height in centimeters",
   },
   {
-    id: 'fitnessGoal',
-    question: 'What is your fitness goal?',
-    type: 'select',
-    options: ['Weight Loss', 'Muscle Gain', 'General Fitness'],
-    description: 'Choose the primary goal for your fitness journey',
+    id: "weight",
+    question: "What is your weight?",
+    type: "number",
+    description: "Enter your weight in kilograms",
   },
   {
-    id: 'exerciseFrequency',
-    question: 'How many days a week can you exercise?',
-    type: 'select',
-    options: ['1-2', '3-4', '5+'],
-    description: 'Select the number of days you can dedicate to working out',
+    id: "fitnessGoal",
+    question: "What is your fitness goal?",
+    type: "select",
+    options: ["Weight Loss", "Muscle Gain", "General Fitness"],
+    description: "Choose the primary goal for your fitness journey",
   },
   {
-    id: 'healthConditions',
-    question: 'Any injuries or health conditions?',
-    type: 'text',
-    description: 'Mention any health concerns that may affect your workout',
-    placeholder: 'If yes, please specify',
+    id: "frequency",
+    question: "How many days a week can you exercise?",
+    type: "select",
+    options: ["1-2", "3-4", "5+"],
+    description: "Select the number of days you can dedicate to working out",
+  },
+  {
+    id: "healthConditions",
+    question: "Any injuries or health conditions?",
+    type: "text",
+    description: "Mention any health concerns that may affect your workout",
+    placeholder: "If yes, please specify",
   },
 ];
-
+import { useSession } from "next-auth/react";
+import FitnessLoader from "@/app/loading";
 const GymQuestionnaire = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const { data: session } = useSession();
+  useEffect(() => {
+    if (session)
+      if (session?.user?.filledForms.onboarding) {
+        router.push("/Diet/Dietinfoform");
+      }
+  }, [session]);
   const router = useRouter();
   const [answers, setAnswers] = useState({
-    name: '',
-    age: '',
-    height: '',
-    fitnessGoal: '',
-    exerciseFrequency: '',
-    healthConditions: '',
+    name: "",
+    age: "",
+    height: "",
+    weight: "",
+    fitnessGoal: "",
+    frequency: "",
+    healthConditions: "",
   });
   const handleInputChange = (id, value) => {
     setAnswers((prev) => ({ ...prev, [id]: value }));
@@ -81,15 +97,25 @@ const GymQuestionnaire = () => {
     }
   };
 
-  const handleSubmit = () => {
-    console.log('User data:', answers);
-    router.push('/Diet/Dietinfoform');
+  const handleSubmit = async () => {
+    console.log("User data:", answers);
+    const updatedUser = await UpdateUser(answers);
+    if (!updatedUser) {
+      console.error("Failed to update user");
+    }
+    console.log("User updated successfully");
+    session.user.filledForms.onboarding = true;
+    // console.log(session);
+    router.push("/Diet/Dietinfoform");
   };
 
   const currentQuestion = questions[currentQuestionIndex];
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
-  const isInputFilled = answers[currentQuestion.id] && answers[currentQuestion.id].trim() !== '';
-
+  const isInputFilled =
+    answers[currentQuestion.id] && answers[currentQuestion.id].trim() !== "";
+  if (!session) {
+    return <FitnessLoader></FitnessLoader>;
+  }
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-r from-blue-50 to-indigo-100 ">
       <div className="flex-grow flex flex-col justify-center px-4 py-12 sm:px-6 lg:px-8">
@@ -105,32 +131,45 @@ const GymQuestionnaire = () => {
               <h2 className="text-2xl font-bold text-gray-600 text-center mb-4 font-bona">
                 {currentQuestion.question}
               </h2>
-              {currentQuestion.type === 'select' ? (
+              {currentQuestion.type === "select" ? (
                 <Select
-                  onValueChange={(value) => handleInputChange(currentQuestion.id, value)}
-                  value={answers[currentQuestion.id] || ''}
+                  onValueChange={(value) =>
+                    handleInputChange(currentQuestion.id, value)
+                  }
+                  value={answers[currentQuestion.id] || ""}
                 >
                   <SelectTrigger className="w-full text-lg p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 mb-6 ">
                     <SelectValue placeholder="Select an option" />
                   </SelectTrigger>
                   <SelectContent>
-                    {currentQuestion.options && currentQuestion.options.map((option) => (
-                      <SelectItem key={option} value={option} className="text-lg">
-                        {option}
-                      </SelectItem>
-                    ))}
+                    {currentQuestion.options &&
+                      currentQuestion.options.map((option) => (
+                        <SelectItem
+                          key={option}
+                          value={option}
+                          className="text-lg"
+                        >
+                          {option}
+                        </SelectItem>
+                      ))}
                   </SelectContent>
                 </Select>
               ) : (
                 <Input
                   type={currentQuestion.type}
-                  placeholder={currentQuestion.placeholder || 'Enter your answer'}
-                  onChange={(e) => handleInputChange(currentQuestion.id, e.target.value)}
-                  value={answers[currentQuestion.id] || ''}
+                  placeholder={
+                    currentQuestion.placeholder || "Enter your answer"
+                  }
+                  onChange={(e) =>
+                    handleInputChange(currentQuestion.id, e.target.value)
+                  }
+                  value={answers[currentQuestion.id] || ""}
                   className="w-full text-lg p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                 />
               )}
-              <p className="text-sm text-gray-500 text-center mt-2">{currentQuestion.description}</p>
+              <p className="text-sm text-gray-500 text-center mt-2">
+                {currentQuestion.description}
+              </p>
             </div>
           </div>
           <div className="bg-gray-50 px-4 py-6 sm:px-10">

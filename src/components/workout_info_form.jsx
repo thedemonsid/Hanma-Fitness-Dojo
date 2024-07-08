@@ -1,19 +1,22 @@
 "use client";
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Input } from '@/components/ui/input';
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import UpdateUser from "@/utils/updateUser";
+import { useSession } from "next-auth/react";
+import FitnessLoader from "@/app/loading";
 const questions = [
   {
-    id: 'fitnessgoal',
+    id: "fitnessGoal",
     question: "What is your primary fitness goal?",
     type: "select",
     options: [
@@ -24,53 +27,68 @@ const questions = [
     ],
   },
   {
-    id: 'workoutfrequency',
+    id: "frequency",
     question: "How often do you currently exercise?",
     type: "select",
     options: ["Never", "1-2 times/week", "3-4 times/week", "5+ times/week"],
   },
   {
-    id: 'physicallimitations',
+    id: "healthConditions",
     question: "Do you have any physical limitations or injuries?",
     type: "text",
     placeholder: "If yes, please specify",
   },
   {
-    id: 'workouttype',
+    id: "ExerciseType",
     question: "What type of workouts do you prefer?",
     type: "select",
     options: [
       "Cardio",
-      "Strength Training",
+      "StrengthTraining",
       "HIIT",
       "Yoga",
       "Mixed",
-      "Muscle-Building",
+      "MuscleBuilding",
     ],
   },
   {
-    id: 'fitnesslevel',
+    id: "fitnessLevel",
     question: "How would you rate your current fitness level?",
     type: "select",
-    options: ["Skinny","Fit","Fat", "Obese"],
+    options: ["SKINNY", "FIT", "FAT", "OBESE"],
   },
   {
-    id: 'equipmentaccess',
+    id: "intensityLevel",
+    question: "What is your preferred workout intensity level?",
+    type: "select",
+    options: ["LOW", "MEDIUM", "HIGH"],
+  },
+  {
+    id: "equipmentAccess",
     question: "Do you have access to a gym or home equipment?",
     type: "select",
-    options: ["Gym", "Home Equipment", "Both", "Neither"],
+    options: ["Gym", "HomeEquipment", "Both", "Neither"],
   },
 ];
 const WorkoutQuestionnaireCarousel = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const router = useRouter();
+  const { data: session } = useSession();
+  useEffect(() => {
+    if (session) {
+      if (session?.user?.filledForms.workout) {
+        router.push("/Gym/your-workout");
+      }
+    }
+  }, [session]);
   const [answers, setAnswers] = useState({
-fitnessGoal: "",
-workoutFrequency: '', 
-physicalLimitations: '',
-workoutType: '',
-fitnessLevel: '',
-equipmentAccess: '',
+    fitnessGoal: "",
+    frequency: "",
+    healthConditions: "",
+    ExerciseType: "",
+    fitnessLevel: "",
+    intensityLevel: "",
+    equipmentAccess: "",
   });
 
   const handleInputChange = (id, value) => {
@@ -89,15 +107,26 @@ equipmentAccess: '',
     }
   };
 
-  const handleSubmit = () => {
-    console.log('User data:', answers);
-    router.push('/Diet/Dietinfoform');
+  const handleSubmit = async () => {
+    console.log("User data:", answers);
+    const updatedUser = await UpdateUser(answers);
+    if (!updatedUser) {
+      console.error("Failed to update user");
+      router.push("/");
+    }
+    console.log("User updated successfully");
+    session.user.filledForms.workout = true;
+    // console.log(session);
+    router.push("/Gym/your-workout");
   };
 
   const currentQuestion = questions[currentQuestionIndex];
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
-  const isInputFilled = answers[currentQuestion.id] && answers[currentQuestion.id].trim() !== '';
-
+  const isInputFilled =
+    answers[currentQuestion.id] && answers[currentQuestion.id].trim() !== "";
+  if (!session) {
+    return <FitnessLoader></FitnessLoader>;
+  }
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-r from-blue-50 to-indigo-100 justify-center">
       <div className="flex-grow flex flex-col justify-center px-4 py-12 sm:px-6 lg:px-8">
@@ -113,32 +142,45 @@ equipmentAccess: '',
               <h2 className="text-2xl font-bold text-gray-600 text-center mb-4 font-bona">
                 {currentQuestion.question}
               </h2>
-              {currentQuestion.type === 'select' ? (
+              {currentQuestion.type === "select" ? (
                 <Select
-                  onValueChange={(value) => handleInputChange(currentQuestion.id, value)}
-                  value={answers[currentQuestion.id] || ''}
+                  onValueChange={(value) =>
+                    handleInputChange(currentQuestion.id, value)
+                  }
+                  value={answers[currentQuestion.id] || ""}
                 >
                   <SelectTrigger className="w-full text-md p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 mb-6 font-bona">
                     <SelectValue placeholder="Select an option" />
                   </SelectTrigger>
                   <SelectContent>
-                    {currentQuestion.options && currentQuestion.options.map((option) => (
-                      <SelectItem key={option} value={option} className="text-sm font-bona">
-                        {option}
-                      </SelectItem>
-                    ))}
+                    {currentQuestion.options &&
+                      currentQuestion.options.map((option) => (
+                        <SelectItem
+                          key={option}
+                          value={option}
+                          className="text-sm font-bona"
+                        >
+                          {option}
+                        </SelectItem>
+                      ))}
                   </SelectContent>
                 </Select>
               ) : (
                 <Input
                   type={currentQuestion.type}
-                  placeholder={currentQuestion.placeholder || 'Enter your answer'}
-                  onChange={(e) => handleInputChange(currentQuestion.id, e.target.value)}
-                  value={answers[currentQuestion.id] || ''}
+                  placeholder={
+                    currentQuestion.placeholder || "Enter your answer"
+                  }
+                  onChange={(e) =>
+                    handleInputChange(currentQuestion.id, e.target.value)
+                  }
+                  value={answers[currentQuestion.id] || ""}
                   className="w-full text-md p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                 />
               )}
-              <p className="text-sm text-gray-500 text-center mt-2 font-bona">{currentQuestion.description}</p>
+              <p className="text-sm text-gray-500 text-center mt-2 font-bona">
+                {currentQuestion.description}
+              </p>
             </div>
           </div>
           <div className="bg-gray-50 px-4 py-6 sm:px-10 font-bona">
