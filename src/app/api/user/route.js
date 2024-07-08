@@ -4,6 +4,7 @@ import prisma from "@/utils/prisma";
 // Fetch all users
 export async function GET() {
   try {
+    
     const users = await prisma.user.findMany();
     if (users.length == 0) {
       return NextResponse.error({
