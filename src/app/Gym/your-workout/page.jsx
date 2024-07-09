@@ -1,5 +1,5 @@
 "use client";
-import Markdown from "@/components/markdownrenderer";
+import MarkdownRenderer from "@/components/workers/MarkdownRenderer";
 import React, { useState, useEffect } from "react";
 import getExercise from "@/utils/getExercise";
 import Loading from "@/app/loading";
@@ -36,7 +36,7 @@ function PersonalWorkoutPage() {
 
   return (
     <div>
-      <Markdown markdownText={content.data} />
+      <MarkdownRenderer markdownText={content.data} />
     </div>
   );
 }

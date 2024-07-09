@@ -1,5 +1,5 @@
 "use client";
-import Markdown from "@/components/markdownrenderer";
+import MarkdownRenderer from "@/components/workers/MarkdownRenderer";
 import React, { useState, useEffect } from "react";
 import getPage from "@/utils/getMealByUserId";
 import Loading from "@/app/loading";
@@ -35,7 +35,7 @@ function PersonalDietPage() {
 
   return (
     <div>
-      <Markdown markdownText={content.data} />
+      <MarkdownRenderer markdownText={content.data} />
     </div>
   );
 }
