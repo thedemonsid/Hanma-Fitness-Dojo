@@ -13,7 +13,7 @@ import StreakCard from "@/components/cards/Streakcard";
 import GymSchedule from "@/components/GymSchedule";
 import DietSchedule from "@/components/DietSchedule";
 
-function GymDashboard() {
+function DashboardComponent() {
   return (
     <div className="animate-fade-in">
       <div className="flex flex-col p-4 space-y-4 mt-4">
@@ -51,4 +51,4 @@ function GymDashboard() {
   );
 }
 
-export default GymDashboard;
+export default DashboardComponent;

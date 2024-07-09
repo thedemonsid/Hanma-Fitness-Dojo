@@ -1,10 +1,10 @@
-import GymDashboard from "@/components/dashboard";
+import DashboardComponent from "@/components/DashboardComponent";
 import React from "react";
 
 const DashBoardPage = () => {
   return (
     <div>
-      <GymDashboard></GymDashboard>
+      <DashboardComponent></DashboardComponent>
     </div>
   );
 };
