@@ -64,7 +64,7 @@ const DietQuestionnaireCarousel = () => {
   useEffect(() => {
     if (session) {
       if (session?.user?.filledForms.diet) {
-        router.push("/Gym/workoutinfo");
+        router.push("/Gym/workout-info-form");
       }
     }
   }, [session]);

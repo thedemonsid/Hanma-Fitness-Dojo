@@ -68,7 +68,7 @@ const GymQuestionnaire = () => {
   useEffect(() => {
     if (session)
       if (session?.user?.filledForms.onboarding) {
-        router.push("/Diet/Dietinfoform");
+        router.push("/Diet/diet-info-form");
       }
   }, [session]);
   const router = useRouter();
@@ -106,7 +106,7 @@ const GymQuestionnaire = () => {
     console.log("User updated successfully");
     session.user.filledForms.onboarding = true;
     // console.log(session);
-    router.push("/Diet/Dietinfoform");
+    router.push("/Diet/diet-info-form");
   };
 
   const currentQuestion = questions[currentQuestionIndex];

@@ -25,7 +25,7 @@ function PersonalWorkoutPage() {
           setContent(data); // Setting the fetched data to state
         });
       } else {
-        redirect("/Gym/workoutinfo");
+        redirect("/Gym/workout-info-form");
       }
     }
   }, [session?.user?.id]);

@@ -24,7 +24,7 @@ function PersonalDietPage() {
           setContent(data); // Setting the fetched data to state
         });
       } else {
-        redirect("/Diet/Dietinfoform");
+        redirect("/Diet/diet-info-form");
       }
     }
   }, [session?.user?.id]);
