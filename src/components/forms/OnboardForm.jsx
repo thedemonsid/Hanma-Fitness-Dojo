@@ -125,7 +125,7 @@ const GymQuestionnaire = () => {
           </h1>
         </div>
 
-        <div className="w-9/12 mx-auto  bg-white shadow-2xl overflow-hidden sm:rounded-lg border-border border-2">
+        <div className="md:w-9/12 mx-auto  bg-white shadow-2xl overflow-hidden sm:rounded-lg border-border border-2">
           <div className="px-4 py-8 sm:p-10">
             <div className="space-y-6">
               <h2 className="text-2xl font-bold text-gray-600 text-center mb-4 font-bona">
@@ -178,7 +178,7 @@ const GymQuestionnaire = () => {
                 onClick={goToPreviousQuestion}
                 disabled={currentQuestionIndex === 0}
                 variant="outline"
-                className="w-32 text-sm"
+                className="md:w-32 text-sm"
               >
                 <ChevronLeft className="w-4 h-4 mr-2" /> Previous
               </Button>
@@ -189,7 +189,7 @@ const GymQuestionnaire = () => {
                 <Button
                   onClick={handleSubmit}
                   disabled={!isInputFilled}
-                  className="w-32 text-sm bg-green-500 hover:bg-green-600"
+                  className="md:w-32 text-sm bg-green-500 hover:bg-green-600"
                 >
                   Submit
                 </Button>
@@ -197,7 +197,7 @@ const GymQuestionnaire = () => {
                 <Button
                   onClick={goToNextQuestion}
                   disabled={!isInputFilled}
-                  className="w-32 text-sm"
+                  className="md:w-32 text-sm"
                 >
                   Next <ChevronRight className="w-4 h-4 ml-2" />
                 </Button>
