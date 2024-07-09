@@ -1,7 +1,7 @@
 "use client";
-import Markdown from "@/components/markdownrenderer";
+import MarkdownRenderer from "@/components/workers/MarkdownRenderer";
 import React, { useState, useEffect } from "react";
-import getExercise from "@/utils/getExercise";
+import fetchGeminiResponse from "@/utils/fetchGemniResponse";
 import Loading from "@/app/loading";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
@@ -20,12 +20,12 @@ function PersonalWorkoutPage() {
     // Fetching Exercise data by user ID
     if (session) {
       if (session?.user?.filledForms.workout) {
-        getExercise(session?.user?.id).then((data) => {
+        fetchGeminiResponse(session?.user?.id,"exercise").then((data) => {
           //console.log(data);
           setContent(data); // Setting the fetched data to state
         });
       } else {
-        redirect("/Gym/workoutinfo");
+        redirect("/Gym/workout-info-form");
       }
     }
   }, [session?.user?.id]);
@@ -36,7 +36,7 @@ function PersonalWorkoutPage() {
 
   return (
     <div>
-      <Markdown markdownText={content.data} />
+      <MarkdownRenderer markdownText={content.data} />
     </div>
   );
 }

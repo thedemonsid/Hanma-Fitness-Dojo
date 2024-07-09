@@ -23,10 +23,12 @@ export async function POST(request) {
     }
 
     // Create a detailed prompt for the AI using user information
-    const userPrompt = `You are a helpful fitness planning system, 
-    Generate a markdown list containing the name of the exercise, description, target muscle groups, recommended sets and reps, and any necessary equipment.
-    Keep in mind the preferences of the user which are mentioned below. THERE SHOULD BE EXERCISES PLANNED FOR EACH DAY OF THE WEEK. [USE LINKS for exercises, FENCED CODE ETC IN MARKDOWN]. OUTPUT FORMAT FOR YOUR ANSWER: 
-    LIST OF EXERCISES, THEIR DESCRIPTION, TARGET MUSCLE GROUPS, RECOMMENDED SETS AND REPS, AND NECESSARY EQUIPMENT IN MARKDOWN FORMAT (Mention the User info at Top IN PARA FORMAT WITH MAIN INFO BEING HIGHLIGHTED, AFTER EACH SUB PART HAVE A HORIZONTAL LINE):\n\n
+    const userPrompt = `You are a helpful fitness planning system.
+Generate a markdown list containing the name of the exercise, description, target muscle groups,
+recommended sets and reps, and any necessary equipment.(5-6 Exercises) Use links for exercises, fenced code blocks, 
+and other appropriate markdown features(Do Not Use Tables)(Use horizontal line after every important Content).
+Here are the user details for reference
+:\n\n
     - Name: ${user?.name || "Not specified"}
     - Age: ${user?.age || "Not specified"}, 
     - Weight: ${user?.weight || "Not specified"}, 

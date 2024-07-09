@@ -1,4 +1,4 @@
-import WorkoutQuestionnaireCarousel from "@/components/workout_info_form";
+import WorkoutQuestionnaireCarousel from "@/components/forms/WorkoutInfoForm";
 import React from "react";
 
 function WorkoutInfoPage() {

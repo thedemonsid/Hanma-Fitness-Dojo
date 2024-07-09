@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Menu, X, User, LogOut, Bookmark, Home, BarChart2, Dumbbell, Apple } from 'lucide-react';
 
-export default function Nav() {
+export default function NavComponent() {
   const { data: session } = useSession();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
