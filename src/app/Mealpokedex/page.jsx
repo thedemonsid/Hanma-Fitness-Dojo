@@ -1,4 +1,4 @@
-import MealPokedex from '@/components/mealpokedex'
+import MealPokedex from '@/components/MealPokedexComponent'
 import React from 'react'
 
 const page = () => {
