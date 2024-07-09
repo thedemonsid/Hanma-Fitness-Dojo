@@ -23,10 +23,10 @@ export async function POST(request) {
     }
 
     // Create a detailed prompt for the AI using user information
-    const userPrompt = `You are a helpful meal prep recommendation system, 
-    Generate a markdown list containing the name of the meal, ingredients, recipe, and calorie per serving.
-    Keep in mind the preferences of the user which are mentioned below.THERE SHOULD BE THE 4-6 MEALS IN A DAY.[USE LINKS for meals ,FENCED CODE ETC IN MARKDOWN]. OUTPUT FORMAT FOR YOUR ANSWER: 
-    LIST OF NAMES, THEIR CALORIE PER SERVE, PROTIEN,FATS,CARBS AND OTHER CONTITUTES IN GRAMS , AND RECIPES OF MEALS FOR A DAY WITH THE TIME IN MARKDOWN FORMAT (Mention the User info at Top IN PARA FORMAT WITH MAIN INFO BEING HIGHLIGHTED , AFTER EACH SUB PART HAVE A HORIZONTAL LNE):\n\n
+    const userPrompt = `You are a helpful meal prep recommendation system.
+Generate a markdown list containing the name of the meal, ingredients(in short), recipe, and calorie,protein,fats and other constituents per serving. 
+Ensure there are 5 meals planned with timings (USe Horizontal lne after each Meal). Use links for meals,and other appropriate markdown features.(Show User preferences before On Top of meal plan)
+User Preferences :\n\n
     - Name : ${user?.name || "Not specified"}
     - Age: ${user?.age || "Not specified"}, 
     - Weight: ${user?.weight || "Not specified"}, 
