@@ -1,11 +1,17 @@
-"use client"
-import React from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import GymGoalCard from '@/components/Gymgoalcard';
-import StreakCard from '@/components/Streakcard';
-import GymSchedule from '@/components/GymSchedule';
-import DietSchedule from '@/components/DietSchedule';
+"use client";
+import React from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import GymGoalCard from "@/components/cards/GymGoalcard";
+import StreakCard from "@/components/cards/Streakcard";
+import GymSchedule from "@/components/GymSchedule";
+import DietSchedule from "@/components/DietSchedule";
 
 function GymDashboard() {
   return (
@@ -21,7 +27,9 @@ function GymDashboard() {
         <Card className="mt-4">
           <CardHeader>
             <CardTitle>Weekly Overview</CardTitle>
-            <CardDescription>Your gym and diet schedule for the week</CardDescription>
+            <CardDescription>
+              Your gym and diet schedule for the week
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="gym" className="w-full">
@@ -43,4 +51,4 @@ function GymDashboard() {
   );
 }
 
-export default GymDashboard
+export default GymDashboard;
