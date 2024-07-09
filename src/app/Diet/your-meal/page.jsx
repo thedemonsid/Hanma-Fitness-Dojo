@@ -1,7 +1,7 @@
 "use client";
 import MarkdownRenderer from "@/components/workers/MarkdownRenderer";
 import React, { useState, useEffect } from "react";
-import getPage from "@/utils/getMealByUserId";
+import fetchGeminiResponse from "@/utils/fetchGemniResponse";
 import Loading from "@/app/loading";
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -19,7 +19,7 @@ function PersonalDietPage() {
     // Fetching meal data by user ID
     if (session) {
       if (session?.user?.filledForms.diet) {
-        getPage(session?.user?.id).then((data) => {
+        fetchGeminiResponse(session?.user?.id,"meal").then((data) => {
           //console.log(data);
           setContent(data); // Setting the fetched data to state
         });

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-async function getMeal(userId) {
+async function fetchGeminiResponse(userId, type) {
   let data = JSON.stringify({
     userId: userId,
   });
@@ -8,7 +8,7 @@ async function getMeal(userId) {
   let config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: "/api/meal",
+    url: "/api/" + type,
     headers: {
       "Content-Type": "application/json",
     },
@@ -23,4 +23,4 @@ async function getMeal(userId) {
     console.log(error);
   }
 }
-export default getMeal;
+export default fetchGeminiResponse;
