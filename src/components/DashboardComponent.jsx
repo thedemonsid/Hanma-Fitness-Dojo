@@ -128,8 +128,8 @@ const DashboardComponent = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-2xl font-bold text-text">7 days strong!</p>
-                  <p className="text-sm text-emerald-700">You're doing great! Keep it up!</p>
-                  <p className="mt-2 text-xs text-emerald-600">Fun fact: You've burned about 3,500 calories this week!</p>
+                  <p className="text-sm text-emerald-700">You&apos;re doing great! Keep it up!</p>
+                  <p className="mt-2 text-xs text-emerald-600">Fun fact: You&apos;ve burned about 3,500 calories this week!</p>
                 </div>
                 <Award size={40} className={`text-yellow-400 transition-all duration-300 ${isHoveredWorkout ? 'animate-[pulse_1s_ease-in-out_infinite]' : ''}`} />
               </div>
@@ -181,7 +181,7 @@ const DashboardComponent = () => {
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="gym">
-                <p className="flex items-center mb-2 text-muted-foreground"><Dumbbell size={16} className="mr-2 text-emerald-500" /> Monday: Upper Body (You've got this!)</p>
+                <p className="flex items-center mb-2 text-muted-foreground"><Dumbbell size={16} className="mr-2 text-emerald-500" /> Monday: Upper Body (You&apos;ve got this!)</p>
                 <p className="flex items-center mb-2 text-muted-foreground"><Dumbbell size={16} className="mr-2 text-emerald-500" /> Wednesday: Lower Body (Feel the strength!)</p>
                 <p className="flex items-center mb-2 text-muted-foreground"><Dumbbell size={16} className="mr-2 text-emerald-500" /> Friday: Full Body (Embrace the challenge!)</p>
                 <p className="mt-4 text-sm text-emerald-700">Remember, every workout brings you closer to your goals.</p>
