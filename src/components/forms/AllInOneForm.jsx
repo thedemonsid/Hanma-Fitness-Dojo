@@ -12,66 +12,36 @@ import {
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import UpdateUser from "@/utils/updateUser";
-
-const questions = [
-  {
-    id: "fitnessGoal",
-    question: "What is your primary fitness goal?",
-    type: "select",
-    options: [
-      "Weight Loss",
-      "Weight Gain",
-      "Maintain Weight",
-      "Improve Health",
-    ],
-    description: "Choose the primary goal for your fitness journey",
-  },
-  {
-    id: "dietPreference",
-    question: "Do you have any dietary Preferences?",
-    type: "select",
-    options: [
-      "None",
-      "Vegetarian",
-      "Vegan",
-      "Gluten-free",
-      "Lactose-free",
-      "Other",
-    ],
-    description: "Select your dietary restrictions if any, or select 'None'",
-  },
-  {
-    id: "region",
-    question: "What is your preferred cuisine?",
-    type: "select",
-    options: [
-      "INDIAN",
-      "AMERICAN",
-      "CHINESE",
-      "ITALIAN",
-      "MEXICAN",
-      "CONTINENTAL",
-      "OTHER",
-    ],
-  },
-];
+import questions from "@/lib/FormQuestions";
 import { useSession } from "next-auth/react";
 import FitnessLoader from "@/app/loading";
-const DietQuestionnaireCarousel = () => {
+const AllInOneForm = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const router = useRouter();
   const { data: session } = useSession();
   useEffect(() => {
     if (session) {
-      if (session?.user?.filledForms.diet) {
-        router.push("/Gym/workout-info-form");
+      if (session?.user?.flagfilled) {
+        router.push("/Dashboard");
       }
     }
   }, [session]);
   const [answers, setAnswers] = useState({
+    name: "",
+    age: "",
+    height: "",
+    weight: "",
     fitnessGoal: "",
+    frequency: "",
+    healthConditions: "",
     dietPreference: "",
     region: "",
+    fitnessGoal: "",
+    frequency: "",
+    ExerciseType: "",
+    fitnessLevel: "",
+    intensityLevel: "",
+    equipmentAccess: "",
   });
 
   const handleInputChange = (id, value) => {
@@ -97,9 +67,9 @@ const DietQuestionnaireCarousel = () => {
       console.error("Failed to update user");
     }
     console.log("User updated successfully");
-    session.user.filledForms.diet = true;
+    session.user.flagfilled = true;
     // console.log(session);
-    router.push("/Diet/your-meal");
+    router.push("/Dashboard");
   };
 
   const currentQuestion = questions[currentQuestionIndex];
@@ -150,6 +120,7 @@ const DietQuestionnaireCarousel = () => {
               ) : (
                 <Input
                   type={currentQuestion.type}
+                  autoFocus
                   placeholder={
                     currentQuestion.placeholder || "Enter your answer"
                   }
@@ -203,4 +174,4 @@ const DietQuestionnaireCarousel = () => {
   );
 };
 
-export default DietQuestionnaireCarousel;
+export default AllInOneForm;

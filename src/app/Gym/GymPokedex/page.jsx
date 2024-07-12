@@ -1,10 +1,10 @@
-import AllInOneForm from "@/components/forms/AllInOneForm";
+import MealPokedex from "@/components/MealPokedexComponent";
 import React from "react";
 
 const page = () => {
   return (
     <div>
-      <AllInOneForm></AllInOneForm>
+      <MealPokedex></MealPokedex>
     </div>
   );
 };
