@@ -35,7 +35,7 @@ model User {
   dietPlans        DietPlan[]
   aiWorkout        String? // AI generated workout but temporary need to change
   aiDiet           String? // AI generated diet but temporary need to change 
-  filledForms      Json?           @default("{\"onboarding\": false, \"workout\": false, \"diet\": false}")
+  flagfilled       Boolean?        @default(false)
 
   @@map(name: "users")
 }

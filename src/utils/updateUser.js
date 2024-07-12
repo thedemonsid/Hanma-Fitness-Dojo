@@ -7,6 +7,7 @@ async function UpdateUser(userDetails) {
     return;
   }
   userDetails.id = session?.user?.id;
+  userDetails.flagfilled = true;
   if (userDetails.age) {
     userDetails.age = parseInt(userDetails.age);
   }

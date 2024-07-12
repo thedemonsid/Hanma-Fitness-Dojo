@@ -19,13 +19,13 @@ function PersonalWorkoutPage() {
   useEffect(() => {
     // Fetching Exercise data by user ID
     if (session) {
-      if (session?.user?.filledForms.workout) {
-        fetchGeminiResponse(session?.user?.id,"exercise").then((data) => {
+      if (session?.user?.flagfilled) {
+        fetchGeminiResponse(session?.user?.id, "exercise").then((data) => {
           //console.log(data);
           setContent(data); // Setting the fetched data to state
         });
       } else {
-        redirect("/Gym/workout-info-form");
+        redirect("/OnBoardForm");
       }
     }
   }, [session?.user?.id]);

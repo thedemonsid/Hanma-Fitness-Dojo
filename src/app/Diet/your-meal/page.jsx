@@ -18,13 +18,13 @@ function PersonalDietPage() {
   useEffect(() => {
     // Fetching meal data by user ID
     if (session) {
-      if (session?.user?.filledForms.diet) {
-        fetchGeminiResponse(session?.user?.id,"meal").then((data) => {
+      if (session?.user?.flagfilled) {
+        fetchGeminiResponse(session?.user?.id, "meal").then((data) => {
           //console.log(data);
           setContent(data); // Setting the fetched data to state
         });
       } else {
-        redirect("/Diet/diet-info-form");
+        redirect("/OnBoardForm");
       }
     }
   }, [session?.user?.id]);

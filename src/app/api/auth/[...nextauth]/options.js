@@ -47,7 +47,7 @@ export const options = {
         });
         if (sessionUser) {
           session.user.id = sessionUser.id;
-          session.user.filledForms = sessionUser.filledForms;
+          session.user.flagfilled = sessionUser.flagfilled;
         }
       }
       return session;
