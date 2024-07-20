@@ -13,19 +13,11 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import UpdateUser from "@/utils/updateUser";
 import questions from "@/lib/FormQuestions";
-import { useSession } from "next-auth/react";
+
 import FitnessLoader from "@/app/loading";
 const AllInOneForm = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const router = useRouter();
-  const { data: session } = useSession();
-  useEffect(() => {
-    if (session) {
-      if (session?.user?.flagfilled) {
-        router.push("/Dashboard");
-      }
-    }
-  }, [session]);
   const [answers, setAnswers] = useState({
     name: "",
     age: "",
@@ -67,8 +59,6 @@ const AllInOneForm = () => {
       console.error("Failed to update user");
     }
     console.log("User updated successfully");
-    session.user.flagfilled = true;
-    // console.log(session);
     router.push("/Dashboard");
   };
 
@@ -76,9 +66,6 @@ const AllInOneForm = () => {
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
   const isInputFilled =
     answers[currentQuestion.id] && answers[currentQuestion.id].trim() !== "";
-  if (!session) {
-    return <FitnessLoader></FitnessLoader>;
-  }
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-r from-blue-50 to-indigo-100 ">
       <div className="flex-grow flex flex-col justify-center px-4 py-12 sm:px-6 lg:px-8">

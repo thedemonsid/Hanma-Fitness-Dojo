@@ -7,12 +7,12 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 export async function POST(request) {
   try {
     const body = await request.json();
-    const userId = body.userId;
+    const userEmail = body.userEmail;
 
     // Fetch user details from the database
     const user = await prisma.user.findUnique({
       where: {
-        id: userId,
+        email: userEmail,
       },
     });
     if (!user) {

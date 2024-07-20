@@ -1,35 +1,30 @@
 "use client";
 import MarkdownRenderer from "@/components/workers/MarkdownRenderer";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import fetchGeminiResponse from "@/utils/fetchGemniResponse";
 import Loading from "@/app/loading";
 import { redirect } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 function PersonalDietPage() {
   const [content, setContent] = useState("");
-  const { data: session, status } = useSession();
+  const { user, isAuthenticated, isLoading } = useKindeBrowserClient();
 
+ 
   useEffect(() => {
-    // Redirect if not signed in and session status is "unauthenticated"
-    if (status === "unauthenticated") {
-      redirect("/api/auth/signin");
+    if (!isLoading && !isAuthenticated) {
+      redirect("/");
     }
-  }, [status]);
-  useEffect(() => {
-    // Fetching meal data by user ID
-    if (session) {
-      if (session?.user?.flagfilled) {
-        fetchGeminiResponse(session?.user?.id, "meal").then((data) => {
-          //console.log(data);
-          setContent(data); // Setting the fetched data to state
-        });
-      } else {
-        redirect("/OnBoardForm");
-      }
+    if (isAuthenticated && !isLoading && content === "") {
+      fetchGeminiResponse(user?.email, "meal").then((data) => {
+        setContent(data); // Setting the fetched data to state
+      });
     }
-  }, [session?.user?.id]);
+  }, [user, isAuthenticated, isLoading]);
 
-  if (!content) {
+  if (isLoading) {
+    return <Loading />;
+  }
+  if (content === "") {
     return <Loading />;
   }
 

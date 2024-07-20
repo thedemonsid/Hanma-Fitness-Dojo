@@ -58,7 +58,7 @@ export async function PUT(request) {
   try {
     const existingUser = await prisma.user.findUnique({
       where: {
-        id: body.id,
+        email: body.email,
       },
     });
     if (!existingUser) {
@@ -69,7 +69,7 @@ export async function PUT(request) {
     }
     const user = await prisma.user.update({
       where: {
-        id: body.id,
+        email: body.email,
       },
       data: body,
     });

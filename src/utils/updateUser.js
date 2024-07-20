@@ -1,12 +1,15 @@
 const axios = require("axios");
-import { getSession } from "next-auth/react";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+
 async function UpdateUser(userDetails) {
-  const session = await getSession();
-  if (!session) {
+  const { isAuthenticated, getUser } = getKindeServerSession();
+  const isUserAuthenticated = await isAuthenticated();
+  const user = await getUser();
+  if (!isUserAuthenticated) {
     console.error("User not logged in");
-    return;
+    return null;
   }
-  userDetails.id = session?.user?.id;
+  userDetails.email = user?.email;
   userDetails.flagfilled = true;
   if (userDetails.age) {
     userDetails.age = parseInt(userDetails.age);
