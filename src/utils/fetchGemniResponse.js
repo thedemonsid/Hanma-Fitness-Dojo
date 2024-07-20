@@ -1,8 +1,8 @@
 import axios from "axios";
 
-async function fetchGeminiResponse(userId, type) {
+async function fetchGeminiResponse(userEmail, type) {
   let data = JSON.stringify({
-    userId: userId,
+    userEmail: userEmail,
   });
 
   let config = {
