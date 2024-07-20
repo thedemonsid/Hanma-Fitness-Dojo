@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { LoginLink, LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import {
   Menu,
@@ -16,6 +15,7 @@ import {
   Dumbbell,
   Apple,
 } from "lucide-react";
+import KindeLink from "./kinde/KindeButton";
 
 export default function NavComponent() {
   const { user, isAuthenticated, isLoading } = useKindeBrowserClient();
@@ -86,7 +86,7 @@ export default function NavComponent() {
                       Bookmarks
                     </ProfileMenuItem>
                     <ProfileMenuItem icon={<LogOut size={18} />}>
-                      <LogoutLink>Sign Out</LogoutLink>
+                      <KindeLink type="logout" text={"Log Out"}></KindeLink>
                     </ProfileMenuItem>
                   </div>
                 )}
@@ -97,7 +97,7 @@ export default function NavComponent() {
                 className="bg-primary text-primary-foreground ml-4"
                 disabled={isLoading}
               >
-                <LoginLink>Sign In</LoginLink>
+                <KindeLink type="login" text={"Sign In"}></KindeLink>
               </Button>
             )}
           </div>
@@ -148,7 +148,7 @@ export default function NavComponent() {
                 className="bg-primary text-primary-foreground w-full mt-2"
                 disabled={isLoading}
               >
-                <LoginLink>Sign In</LoginLink>
+                <KindeLink type="login" text={"Sign In"}></KindeLink>
               </Button>
             )}
           </div>
