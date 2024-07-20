@@ -8,7 +8,7 @@ export async function GET() {
 
   if (!user || user == null || !user.id) {
     console.log("User not found", "\n User : ", user);
-    return NextResponse.redirect("http://localhost:3000/");
+    return NextResponse.redirect(process.env.KINDE_SITE_URL);
   }
 
   let dbUser = await prisma.user.findUnique({
@@ -25,5 +25,5 @@ export async function GET() {
     });
   }
 
-  return NextResponse.redirect("http://localhost:3000/");
+  return NextResponse.redirect(process.env.KINDE_SITE_URL);
 }
