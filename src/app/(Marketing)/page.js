@@ -1,29 +1,29 @@
-"use client";
-import React, { useEffect } from "react";
+import KindeLink from "@/components/kinde/KindeButton";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { useRouter } from "next/navigation";
-const Home = () => {
-  let router = useRouter();
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import Link from "next/link";
+
+const Home = async () => {
+  const { getUser, isAuthenticated } = getKindeServerSession();
+  const isUserAuthenticated = await isAuthenticated();
+  const user = await getUser();
+  console.log(user);
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
       <header className="container mx-auto px-6 py-20 text-center">
         <h1 className="text-5xl md:text-7xl font-bold mb-6 text-center">
-        💪 Hanma-Fitness-Dojo 💪
+          💪 Hanma-Fitness-Dojo 💪
         </h1>
         <p className="text-xl md:text-3xl mb-10">
           Your AI-Powered Fitness Management Assistant 🤖
         </p>
         <Button
           size="lg"
-          className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8 py-3"
-          onClick={() => {
-            console.log("Get Started Clicked");
-            router.push("/Gym/your-workout");
-          }}
+          className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8 py-3 transition-all duration-300 hover:scale-105 hover:shadow-lg"
         >
-          Get Started
+          <Link href={"/Dashboard"}> Get Started</Link>
         </Button>
       </header>
 
@@ -78,14 +78,11 @@ const Home = () => {
             fitness management.
           </p>
           <Button
+            disabled={isUserAuthenticated}
             size="lg"
             className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8 py-3 transition-all duration-300 hover:scale-105 hover:shadow-lg"
-            onClick={() => {
-              console.log("Sign Up Now Clicked");
-              router.push("api/auth/signin");
-            }}
           >
-            Sign Up Now
+            <KindeLink type="login" text={"Sign Up Now"}></KindeLink>
           </Button>
         </div>
       </section>
