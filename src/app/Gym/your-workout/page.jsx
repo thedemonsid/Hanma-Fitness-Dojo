@@ -1,37 +1,37 @@
-"use client";
 import MarkdownRenderer from "@/components/workers/MarkdownRenderer";
-import React, { useState, useEffect, use } from "react";
-import fetchGeminiResponse from "@/utils/fetchGemniResponse";
-import Loading from "@/app/loading";
+import fetchGeminiResponse from "@/utils/fetchGeminiResponse";
 import { redirect } from "next/navigation";
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-function PersonalWorkoutPage() {
-  const [content, setContent] = useState("");
-  const { user, isAuthenticated, isLoading } = useKindeBrowserClient();
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      redirect("/");
-    }
-    if (isAuthenticated && !isLoading && content === "") {
-      fetchGeminiResponse(user?.email, "exercise").then((data) => {
-        setContent(data); // Setting the fetched data to state
-      });
-    }
-  }, [user, isAuthenticated, isLoading]);
-
-  if (isLoading) {
-    return <Loading />;
+async function PersonalWorkoutPage() {
+  const { isAuthenticated, getUser } = getKindeServerSession();
+  const isUserAuthenticated = await isAuthenticated();
+  const user = await getUser();
+  if (!isUserAuthenticated) {
+    redirect("/api/auth/login");
   }
-  if (content === "") {
-    return <Loading />;
+  try {
+    let content = await fetchGeminiResponse(user?.email, "exercise");
+    if (!content.data) {
+      return (
+        <div className="text-red-600 flex justify-center items-center m-2 p-2">
+          Server Side Error
+        </div>
+      );
+    }
+    return (
+      <div>
+        <MarkdownRenderer markdownText={content.data} />
+      </div>
+    );
+  } catch (error) {
+    console.error("Fetching error:", error);
+    return (
+      <div className="text-red-600 flex justify-center items-center m-2 p-2">
+        An error occurred while fetching data.
+      </div>
+    );
   }
-
-  return (
-    <div>
-      <MarkdownRenderer markdownText={content.data} />
-    </div>
-  );
 }
 
 export default PersonalWorkoutPage;
