@@ -6,6 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus, Play, Clock, BarChart } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/components/ui/use-toast";
 
 const categories = ['All', 'Strength', 'Cardio', 'Flexibility', 'HIIT', 'Recovery'];
 
@@ -15,7 +16,6 @@ const workouts = [
   { id: 3, name: 'Yoga Flow', category: 'Flexibility', description: 'Improve flexibility and mindfulness with this yoga session', duration: '60 min', difficulty: 'Beginner' },
   { id: 4, name: '5K Run', category: 'Cardio', description: 'Outdoor or treadmill run to improve cardiovascular health', duration: '30 min', difficulty: 'Intermediate' },
   { id: 5, name: 'Active Recovery', category: 'Recovery', description: 'Light exercises and stretches for rest days', duration: '20 min', difficulty: 'Beginner' },
-  // Add more workouts as needed
 ];
 
 const WorkoutCard = ({ workout, onAdd, onStart }) => (
@@ -50,20 +50,31 @@ const WorkoutCard = ({ workout, onAdd, onStart }) => (
   </Card>
 );
 
-const WorkoutPage = () => {
+const WorkoutPage = ({ onAddWorkout }) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const { toast } = useToast();
 
   const filteredWorkouts = selectedCategory === 'All'
     ? workouts
     : workouts.filter(workout => workout.category === selectedCategory);
 
   const addToPlan = (workout) => {
-    console.log(`Added ${workout.name} to Plan`);
-    // In a real app, you'd update state or make an API call here
+    onAddWorkout({
+      id: `w${Date.now()}`,
+      text: `${workout.name} (${workout.duration})`,
+      completed: false
+    });
+    toast({
+      title: "Workout Added",
+      description: `${workout.name} has been added to your plan.`,
+    });
   };
 
   const startWorkout = (workout) => {
-    console.log(`Starting workout: ${workout.name}`);
+    toast({
+      title: "Workout Started",
+      description: `You've started ${workout.name}. Good luck!`,
+    });
     // In a real app, this would navigate to a workout session page
   };
 

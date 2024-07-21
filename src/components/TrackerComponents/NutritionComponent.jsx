@@ -6,6 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus, Utensils, Flame, Scale } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/components/ui/use-toast";
 
 const categories = ['All', 'Weightloss', 'MuscleBuilding', 'Maintenance'];
 
@@ -15,7 +16,6 @@ const meals = [
   { id: 3, name: 'Mediterranean Bowl', category: 'Maintenance', description: 'Balanced meal with whole grains, veggies, and lean protein', calories: 550, protein: 25, carbs: 65, fat: 20 },
   { id: 4, name: 'Lentil and Vegetable Curry', category: 'Vegan', description: 'Plant-based protein-rich meal', calories: 450, protein: 20, carbs: 60, fat: 15 },
   { id: 5, name: 'Avocado and Bacon Omelette', category: 'Keto', description: 'High fat, low carb meal for ketogenic diet', calories: 500, protein: 25, carbs: 5, fat: 45 },
-  { id: 6, name: 'Chicken and Vegetable Stir-Fry', category: 'Weightloss', description: 'Protein-packed, low-calorie meal' ,calories: 300, protein: 20, carbs: 35}
 ];
 
 const MealCard = ({ meal, onAdd }) => (
@@ -53,16 +53,24 @@ const MealCard = ({ meal, onAdd }) => (
   </Card>
 );
 
-const NutritionPage = () => {
+const NutritionPage = ({ onAddMeal }) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const { toast } = useToast();
 
   const filteredMeals = selectedCategory === 'All'
     ? meals
     : meals.filter(meal => meal.category === selectedCategory);
 
   const addToPlan = (meal) => {
-    console.log(`Added ${meal.name} to Plan`);
-    // In a real app, you'd update state or make an API call here
+    onAddMeal({
+      id: `m${Date.now()}`,
+      text: `${meal.name} (${meal.calories} cal)`,
+      completed: false
+    });
+    toast({
+      title: "Meal Added",
+      description: `${meal.name} has been added to your plan.`,
+    });
   };
 
   return (

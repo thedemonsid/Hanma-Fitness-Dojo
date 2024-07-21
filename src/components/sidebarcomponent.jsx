@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import Link from "next/link";
 import {
@@ -11,11 +12,193 @@ import {
   ChevronRight,
   Menu,
   X,
+  Plus,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
+
+const QuickActionDialog = ({ title, children, trigger }) => (
+  <Dialog>
+    <DialogTrigger asChild>
+      {trigger}
+    </DialogTrigger>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>{title}</DialogTitle>
+      </DialogHeader>
+      {children}
+    </DialogContent>
+  </Dialog>
+);
+
+const LogWorkoutDialog = () => {
+  const { toast } = useToast();
+  const [workoutName, setWorkoutName] = useState('');
+  const [duration, setDuration] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    toast({
+      title: "Workout Logged",
+      description: `${workoutName} for ${duration} minutes has been logged.`,
+    });
+    setWorkoutName('');
+    setDuration('');
+  };
+
+  return (
+    <QuickActionDialog
+      title="Log Workout"
+      trigger={<Button variant="outline" size="sm">Log Workout</Button>}
+    >
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <Label htmlFor="workoutName">Workout Name</Label>
+          <Input
+            id="workoutName"
+            value={workoutName}
+            onChange={(e) => setWorkoutName(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <Label htmlFor="duration">Duration (minutes)</Label>
+          <Input
+            id="duration"
+            type="number"
+            value={duration}
+            onChange={(e) => setDuration(e.target.value)}
+            required
+          />
+        </div>
+        <Button type="submit">Log Workout</Button>
+      </form>
+    </QuickActionDialog>
+  );
+};
+
+const AddMealDialog = () => {
+  const { toast } = useToast();
+  const [mealName, setMealName] = useState('');
+  const [calories, setCalories] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    toast({
+      title: "Meal Added",
+      description: `${mealName} (${calories} calories) has been added to your plan.`,
+    });
+    setMealName('');
+    setCalories('');
+  };
+
+  return (
+    <QuickActionDialog
+      title="Add Meal"
+      trigger={<Button variant="outline" size="sm">Add Meal</Button>}
+    >
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <Label htmlFor="mealName">Meal Name</Label>
+          <Input
+            id="mealName"
+            value={mealName}
+            onChange={(e) => setMealName(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <Label htmlFor="calories">Calories</Label>
+          <Input
+            id="calories"
+            type="number"
+            value={calories}
+            onChange={(e) => setCalories(e.target.value)}
+            required
+          />
+        </div>
+        <Button type="submit">Add Meal</Button>
+      </form>
+    </QuickActionDialog>
+  );
+};
+
+const WaterIntakeDialog = () => {
+  const { toast } = useToast();
+  const [amount, setAmount] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    toast({
+      title: "Water Intake Logged",
+      description: `${amount} ml of water intake has been logged.`,
+    });
+    setAmount('');
+  };
+
+  return (
+    <QuickActionDialog
+      title="Log Water Intake"
+      trigger={<Button variant="outline" size="sm">Water Intake</Button>}
+    >
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <Label htmlFor="amount">Amount (ml)</Label>
+          <Input
+            id="amount"
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            required
+          />
+        </div>
+        <Button type="submit">Log Water Intake</Button>
+      </form>
+    </QuickActionDialog>
+  );
+};
+
+const WeighInDialog = () => {
+  const { toast } = useToast();
+  const [weight, setWeight] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    toast({
+      title: "Weight Logged",
+      description: `Your weight of ${weight} kg has been logged.`,
+    });
+    setWeight('');
+  };
+
+  return (
+    <QuickActionDialog
+      title="Log Weight"
+      trigger={<Button variant="outline" size="sm">Weigh In</Button>}
+    >
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <Label htmlFor="weight">Weight (kg)</Label>
+          <Input
+            id="weight"
+            type="number"
+            step="0.1"
+            value={weight}
+            onChange={(e) => setWeight(e.target.value)}
+            required
+          />
+        </div>
+        <Button type="submit">Log Weight</Button>
+      </form>
+    </QuickActionDialog>
+  );
+};
 
 const SidebarContent = ({ onClose }) => (
   <>
@@ -51,11 +234,7 @@ const SidebarContent = ({ onClose }) => (
             { href: "/Dashboard", icon: Activity, label: "Dashboard" },
             { href: "/Dashboard/workouts", icon: Dumbbell, label: "Workouts" },
             { href: "/Dashboard/meals", icon: Apple, label: "Meals" },
-            {
-              href: "/Dashboard/progress",
-              icon: TrendingUp,
-              label: "Progress",
-            },
+            { href: "/Dashboard/progress", icon: TrendingUp, label: "Progress" },
           ].map((item) => (
             <Link key={item.href} href={item.href} onClick={onClose}>
               <Button variant="ghost" className="justify-start w-full">
@@ -69,18 +248,10 @@ const SidebarContent = ({ onClose }) => (
         <div className="space-y-2">
           <h2 className="text-base font-semibold sm:text-lg">Quick Actions</h2>
           <div className="grid grid-cols-2 gap-2">
-            {["Log Workout", "Add Meal", "Water Intake", "Weigh In"].map(
-              (action) => (
-                <Button
-                  key={action}
-                  variant="outline"
-                  size="sm"
-                  onClick={onClose}
-                >
-                  {action}
-                </Button>
-              ),
-            )}
+            <LogWorkoutDialog />
+            <AddMealDialog />
+            <WaterIntakeDialog />
+            <WeighInDialog />
           </div>
         </div>
 
