@@ -1,12 +1,9 @@
 "use client"
 import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus, Play, Clock, BarChart } from 'lucide-react';
-import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/components/ui/use-toast";
+import WorkoutCard from '@/components/cards/Workoutcard';
 
 const categories = ['All', 'Strength', 'Cardio', 'Flexibility', 'HIIT', 'Recovery'];
 
@@ -17,38 +14,7 @@ const workouts = [
   { id: 4, name: '5K Run', category: 'Cardio', description: 'Outdoor or treadmill run to improve cardiovascular health', duration: '30 min', difficulty: 'Intermediate' },
   { id: 5, name: 'Active Recovery', category: 'Recovery', description: 'Light exercises and stretches for rest days', duration: '20 min', difficulty: 'Beginner' },
 ];
-
-const WorkoutCard = ({ workout, onAdd, onStart }) => (
-  <Card className="flex flex-col h-full">
-    <CardHeader>
-      <CardTitle className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-        <span className="mb-2 sm:mb-0">{workout.name}</span>
-        <Badge variant="secondary">{workout.category}</Badge>
-      </CardTitle>
-      <CardDescription>{workout.description}</CardDescription>
-    </CardHeader>
-    <CardContent className="flex flex-col justify-between flex-grow">
-      <div className="grid grid-cols-2 gap-2 mb-4">
-        <div className="flex items-center">
-          <Clock className="mr-2 text-blue-500" size={18} />
-          <span className="text-sm">{workout.duration}</span>
-        </div>
-        <div className="flex items-center">
-          <BarChart className="mr-2 text-green-500" size={18} />
-          <span className="text-sm">{workout.difficulty}</span>
-        </div>
-      </div>
-      <div className="flex flex-col gap-2 sm:flex-row">
-        <Button onClick={() => onAdd(workout)} size="sm" variant="outline" className="flex-grow">
-          <Plus className="w-4 h-4 mr-2" /> Add to Plan
-        </Button>
-        <Button onClick={() => onStart(workout)} size="sm" className="flex-grow">
-          <Play className="w-4 h-4 mr-2" /> Start
-        </Button>
-      </div>
-    </CardContent>
-  </Card>
-);
+// Replace with usestate("id ","name","Category","Description","Duration","Difficulty") and db fecthing
 
 const WorkoutPage = ({ onAddWorkout }) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -75,7 +41,7 @@ const WorkoutPage = ({ onAddWorkout }) => {
       title: "Workout Started",
       description: `You've started ${workout.name}. Good luck!`,
     });
-    // In a real app, this would navigate to a workout session page
+
   };
 
   return (

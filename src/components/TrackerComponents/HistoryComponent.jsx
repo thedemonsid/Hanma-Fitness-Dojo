@@ -61,7 +61,8 @@ const activities = [
     duration: "60 minutes",
     calories: 180,
   },
-  // Add more activities as needed
+ // use usestate and db fecthing logic here
+ // TODO: Modularize this component for better reusability
 ];
 
 const ActivityIcon = ({ type }) => {

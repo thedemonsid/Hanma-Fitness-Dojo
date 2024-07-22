@@ -51,7 +51,7 @@ const LogWorkoutDialog = () => {
     setWorkoutName('');
     setDuration('');
   };
-
+//  Fetch user's meal data and update it in the database
   return (
     <QuickActionDialog
       title="Log Workout"
@@ -97,6 +97,7 @@ const AddMealDialog = () => {
     setMealName('');
     setCalories('');
   };
+  // Fetch user's meal data and update it in the database
 
   return (
     <QuickActionDialog
@@ -128,6 +129,7 @@ const AddMealDialog = () => {
     </QuickActionDialog>
   );
 };
+// calaiore whatever.
 
 const WaterIntakeDialog = () => {
   const { toast } = useToast();
@@ -141,6 +143,7 @@ const WaterIntakeDialog = () => {
     });
     setAmount('');
   };
+  // Fetch user's water intake data and update it in the database
 
   return (
     <QuickActionDialog
@@ -176,6 +179,7 @@ const WeighInDialog = () => {
     });
     setWeight('');
   };
+  // Fetch user's weight data and update it in the database
 
   return (
     <QuickActionDialog
@@ -199,6 +203,7 @@ const WeighInDialog = () => {
     </QuickActionDialog>
   );
 };
+//
 
 const SidebarContent = ({ onClose }) => (
   <>
