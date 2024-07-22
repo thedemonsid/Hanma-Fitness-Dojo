@@ -109,7 +109,7 @@ const InputSequence = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
-  }, [currentQuestionIndex]);
+  }, );
 
   useEffect(() => {
     if (sliderRef.current) {

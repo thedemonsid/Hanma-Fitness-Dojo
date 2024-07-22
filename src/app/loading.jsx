@@ -29,11 +29,11 @@ const FitnessLoader = () => {
       clearInterval(emojiInterval);
       clearInterval(textInterval);
     };
-  }, []);
+  }, );
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-blue-500 to-purple-600">
-      <div className="flex space-x-4 mb-8">
+      <div className="flex mb-8 space-x-4">
         {fitnessEmojis.map((emoji, index) => (
           <div
             key={index}
@@ -45,7 +45,7 @@ const FitnessLoader = () => {
           </div>
         ))}
       </div>
-      <div className="text-white text-xl font-semibold animate-pulse">
+      <div className="text-xl font-semibold text-white animate-pulse">
         {loadingText}
       </div>
     </div>
