@@ -1,44 +1,12 @@
-// schema.prisma
-
+// Generator configuration for Prisma Client
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
-}
-
-model User {
-  id               String          @id @default(cuid())
-  kindeId          String?         @unique
-  name             String?
-  email            String          @unique
-  imageUrl         String?
-  age              Int?
-  gender           String?
-  weight           Float?
-  fitnessLevel     fitnessLevel    @default(FAT)
-  intensityLevel   Intensity?      @default(MEDIUM)
-  dietPreference   String?
-  height           Float?
-  region           Region?         @default(INDIAN)
-  fitnessGoal      String?         @default("Overall Fitness")
-  equipmentAccess  EquipmentAccess @default(Both)
-  healthConditions String?         @default("Healthy")
-  frequency        String?         @default("3 Days a week")
-  ExerciseType     ExerciseType    @default(Mixed)
-  role             UserRole        @default(USER)
-  createdAt        DateTime        @default(now()) @map(name: "created_at")
-  updatedAt        DateTime        @updatedAt @map(name: "updated_at")
-  workoutPlan      WorkoutPlan[]
-  dietPlans        DietPlan[]
-  aiWorkout        String? // AI generated workout but temporary need to change
-  aiDiet           String? // AI generated diet but temporary need to change 
-  flagfilled       Boolean?        @default(false)
-
-  @@map(name: "users")
+  url       = env("POSTGRES_PRISMA_URL") // Connection pooling URL for optimized performance
+  directUrl = env("POSTGRES_URL_NON_POOLING") // Direct connection URL, used when pooling is not required
 }
 
 enum UserRole {
@@ -47,113 +15,126 @@ enum UserRole {
   ADMIN
 }
 
-enum fitnessLevel {
-  SKINNY
-  FIT
-  FAT
-  OBESE
+model User {
+  id                String           @id @default(cuid())
+  kindeId           String           @unique
+  name              String
+  email             String           @unique
+  age               Int?
+  gender            String?
+  weight            Float?
+  height            Float?
+  fitnessGoal       String?
+  imageUrl          String?
+  role              UserRole         @default(USER)
+  meal_histories    MealHistory[]
+  workout_histories WorkoutHistory[]
+  createdAt         DateTime         @default(now()) @map(name: "created_at")
+  updatedAt         DateTime         @updatedAt @map(name: "updated_at")
+
+  @@index([email])
+  @@map(name: "users")
 }
 
-enum EquipmentAccess {
-  Gym
-  HomeEquipment
-  Both
-  Neither
+// Connected to user with a one-to-many relationship meaning a user can have multiple meal histories
+model MealHistory {
+  id        String         @id @default(cuid())
+  meals     MealInstance[]
+  createdAt DateTime       @default(now()) @map(name: "created_at")
+  updatedAt DateTime       @updatedAt @map(name: "updated_at")
+  User      User           @relation(fields: [userEmail], references: [email], onDelete: Cascade)
+  userEmail String         @unique
+
+  @@index([userEmail])
+  @@map(name: "meal_histories")
 }
 
-enum Region {
-  INDIAN
-  AMERICAN
-  CHINESE
-  ITALIAN
-  MEXICAN
-  CONTINENTAL
-  OTHER
+// MealInstance model for individual meal records within a user's meal history
+// Connected to meal and meal history with a many-to-one relationship meaning a meal instance can have only one meal and meal history
+model MealInstance {
+  id             String      @id @default(cuid())
+  servingInGrams Int
+  isCompleted    Boolean     @default(false)
+  meal           Meal        @relation(fields: [mealId], references: [id])
+  mealId         String
+  MealHistory    MealHistory @relation(fields: [mealHistoryId], references: [id], onDelete: Cascade)
+  mealHistoryId  String
+  createdAt      DateTime    @default(now()) @map(name: "created_at")
+  updatedAt      DateTime    @updatedAt @map(name: "updated_at")
+
+  @@map(name: "meal_instances")
 }
 
-enum ExerciseType {
-  Cardio
-  StrengthTraining
-  HIIT
-  Yoga
-  Mixed
-  MuscleBuilding
+// Meal model for defining a meal, including nutritional information and preparation details
+model Meal {
+  id           String         @id @default(cuid())
+  name         String         @unique
+  howToMake    String         @map(name: "how_to_make")
+  calories     Float          @default(0)
+  protein      Float          @default(0)
+  carbs        Float          @default(0)
+  fats         Float          @default(0)
+  fiber        Float          @default(0)
+  recipe       String?
+  imageUrl     String?
+  videoUrl     String?
+  createdAt    DateTime       @default(now()) @map(name: "created_at")
+  updatedAt    DateTime       @updatedAt @map(name: "updated_at")
+  MealInstance MealInstance[]
+
+  @@map(name: "meals")
 }
 
-enum MuscleGroup {
-  CHEST
-  BACK
-  LEGS
-  ARMS
-  SHOULDERS
-  CORE
+// WorkoutHistory model for tracking a user's workout history
+// Connected to user with a one-to-many relationship meaning a user can have multiple workout histories
+model WorkoutHistory {
+  id        String            @id @default(cuid())
+  workouts  WorkoutInstance[]
+  createdAt DateTime          @default(now()) @map(name: "created_at")
+  updatedAt DateTime          @updatedAt @map(name: "updated_at")
+  User      User              @relation(fields: [userEmail], references: [email], onDelete: Cascade)
+  userEmail String            @unique
+
+  @@index([userEmail])
+  @@map(name: "workout_histories")
 }
 
-enum MealType {
-  BREAKFAST
-  LUNCH
-  DINNER
-  SNACK
+// WorkoutInstance model for individual workout records within a user's workout history
+// Connected to workout and workout history with a many-to-one relationship meaning a workout instance can have only one workout and workout history
+model WorkoutInstance {
+  id               String         @id @default(cuid())
+  sets             Int            @default(3)
+  repsPerSet       Int[]
+  weightsPerSet    Float[]
+  isCompleted      Boolean        @default(false)
+  workout          Workout        @relation(fields: [workoutId], references: [id])
+  workoutId        String
+  workoutHistory   WorkoutHistory @relation(fields: [workoutHistoryId], references: [id], onDelete: Cascade)
+  workoutHistoryId String
+  createdAt        DateTime       @default(now()) @map(name: "created_at")
+  updatedAt        DateTime       @updatedAt @map(name: "updated_at")
+
+  @@map(name: "workout_instances")
 }
 
-enum Intensity {
-  LOW
-  MEDIUM
-  HIGH
+// Workout model for defining a workout, including details on how to perform it and its difficulty level
+model Workout {
+  id               String            @id @default(cuid())
+  name             String            @unique
+  howToDo          String            @map(name: "how_to_do")
+  duration         Int
+  difficulty       Difficulty        @default(BEGINNER)
+  imageUrl         String
+  videoUrl         String
+  createdAt        DateTime          @default(now()) @map(name: "created_at")
+  updatedAt        DateTime          @updatedAt @map(name: "updated_at")
+  workout_instance WorkoutInstance[]
+
+  @@map(name: "workouts")
 }
 
 enum Difficulty {
   BEGINNER
   INTERMEDIATE
   ADVANCED
-}
-
-model WorkoutPlan {
-  id         String     @id @default(cuid())
-  title      String
-  difficulty Difficulty
-  users      User[]
-  workouts   Workout[]
-
-  @@map(name: "workout_plans")
-}
-
-model Workout {
-  id            String        @id @default(cuid())
-  title         String
-  description   String?
-  videoUrl      String?
-  imageUrl      String?
-  difficulty    Difficulty
-  muscleGroup   MuscleGroup[]
-  duration      Int?
-  intensity     Intensity?
-  WorkoutPlan   WorkoutPlan?  @relation(fields: [workoutPlanId], references: [id])
-  workoutPlanId String?
-
-  @@map(name: "workouts")
-}
-
-model DietPlan {
-  id          String  @id @default(cuid())
-  title       String
-  description String?
-  Meal        Meal[]
-  users       User[]
-
-  @@map(name: "diet_plans")
-}
-
-model Meal {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  imageUrl    String?
-  mealType    MealType
-  recipe      String?
-
-  DietPlan   DietPlan? @relation(fields: [dietPlanId], references: [id])
-  dietPlanId String?
-
-  @@map(name: "meals")
 }
