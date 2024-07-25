@@ -69,14 +69,13 @@ model MealInstance {
 model Meal {
   id           String         @id @default(cuid())
   name         String         @unique
-  howToMake    String         @map(name: "how_to_make")
+  recipe       String?
   calories     Float          @default(0)
   protein      Float          @default(0)
   carbs        Float          @default(0)
   fats         Float          @default(0)
   fiber        Float          @default(0)
-  recipe       String?
-  imageUrl     String?
+  imageUrl     String
   videoUrl     String?
   createdAt    DateTime       @default(now()) @map(name: "created_at")
   updatedAt    DateTime       @updatedAt @map(name: "updated_at")
@@ -123,6 +122,8 @@ model Workout {
   name             String            @unique
   howToDo          String            @map(name: "how_to_do")
   duration         Int
+  movementType     MovementType      @default(FULL_BODY)
+  targetMuscle     TargetMuscle[]
   difficulty       Difficulty        @default(BEGINNER)
   imageUrl         String
   videoUrl         String
@@ -137,4 +138,31 @@ enum Difficulty {
   BEGINNER
   INTERMEDIATE
   ADVANCED
+}
+
+enum MovementType {
+  PUSH
+  PULL
+  LEGS
+  CORE
+  FULL_BODY
+}
+
+enum TargetMuscle {
+  CHEST
+  BACK
+  SHOULDERS
+  BICEPS
+  TRICEPS
+  FOREARMS
+  ABS
+  QUADS
+  HAMSTRINGS
+  CALVES
+  GLUTES
+  ADDUCTORS
+  ABDUCTORS
+  TRAPS
+  LATS
+  LOWER_BACK
 }
