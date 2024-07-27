@@ -75,7 +75,7 @@ model Meal {
   carbs        Float          @default(0)
   fats         Float          @default(0)
   fiber        Float          @default(0)
-  imageUrl     String
+  imageUrl     String?
   videoUrl     String?
   createdAt    DateTime       @default(now()) @map(name: "created_at")
   updatedAt    DateTime       @updatedAt @map(name: "updated_at")
@@ -125,8 +125,8 @@ model Workout {
   movementType     MovementType      @default(FULL_BODY)
   targetMuscle     TargetMuscle[]
   difficulty       Difficulty        @default(BEGINNER)
-  imageUrl         String
-  videoUrl         String
+  imageUrl         String?
+  videoUrl         String?
   createdAt        DateTime          @default(now()) @map(name: "created_at")
   updatedAt        DateTime          @updatedAt @map(name: "updated_at")
   workout_instance WorkoutInstance[]
