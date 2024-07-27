@@ -1,26 +1,31 @@
 import { NextResponse } from "next/server";
 import prisma from "@/utils/prisma";
-
+import workoutSchema from "@/lib/schemaValidators/workoutSchema";
+const partialWorkoutSchema = workoutSchema.partial();
 // Fetch all workouts
 export async function GET() {
   try {
     const workouts = await prisma.workout.findMany();
     if (workouts.length == 0) {
-      return NextResponse.error({
+      return NextResponse.json({
         status: 404,
-        statusText: "No workouts found",
+        message: "No workouts found",
+        success: true,
       });
     }
     return NextResponse.json({
       message: "Workouts fetched successfully",
       numberOfWorkouts: workouts.length,
-      statusCode: 200,
+      status: 200,
       data: workouts,
+      success: true,
     });
   } catch (error) {
-    return NextResponse.error({
+    return NextResponse.json({
       status: 500,
-      statusText: "Internal Server Error",
+      message: "Internal Server Error",
+      success: false,
+      error: error.message,
     });
   }
 }
@@ -29,41 +34,66 @@ export async function GET() {
 export async function POST(request) {
   try {
     const body = await request.json();
+    // Validate the request body against the schema
+    const parsedBody = workoutSchema.safeParse(body);
+    if (!parsedBody.success) {
+      return NextResponse.json({
+        status: 400,
+        message: "Invalid workout data",
+        success: false,
+        errors: parsedBody.error.errors,
+      });
+    }
+
     const workout = await prisma.workout.create({
-      data: body,
+      data: parsedBody.data,
     });
     if (!workout) {
-      return NextResponse.error({
+      return NextResponse.json({
         status: 500,
-        statusText: "Workout not created",
+        message: "Workout not created",
+        success: false,
       });
     }
     return NextResponse.json({
       message: "Workout added successfully",
-      statusCode: 200,
+      status: 200,
       data: workout,
+      success: true,
     });
   } catch (error) {
-    return NextResponse.error({
+    return NextResponse.json({
       status: 500,
-      statusText: "Internal Server Error",
+      message: "Internal Server Error",
+      success: false,
+      error: error.message,
     });
   }
 }
 
 // Update a workout
 export async function PUT(request) {
-  const body = await request.json();
   try {
+    const body = await request.json();
+    const parsedBody = partialWorkoutSchema.safeParse(body);
+    if (!parsedBody.success) {
+      return NextResponse.json({
+        status: 400,
+        message: "Invalid workout data",
+        success: false,
+        errors: parsedBody.error.errors,
+      });
+    }
     const existingWorkout = await prisma.workout.findUnique({
       where: {
         id: body.id,
       },
     });
     if (!existingWorkout) {
-      return NextResponse.error({
+      return NextResponse.json({
         status: 404,
-        statusText: "Workout not found",
+        message: "Workout not found",
+        success: false,
       });
     }
     const workout = await prisma.workout.update({
@@ -74,30 +104,43 @@ export async function PUT(request) {
     });
     return NextResponse.json({
       message: "Workout updated successfully",
-      statusCode: 200,
+      status: 200,
       data: workout,
+      success: true,
     });
   } catch (error) {
-    return NextResponse.error({
+    return NextResponse.json({
       status: 500,
-      statusText: "Internal Server Error",
+      message: "Internal Server Error",
+      success: false,
+      error: error.message,
     });
   }
 }
 
 // Delete a workout
 export async function DELETE(request) {
-  const body = await request.json();
   try {
+    const body = await request.json();
+    const parsedBody = partialWorkoutSchema.safeParse(body);
+    if (!parsedBody.success) {
+      return NextResponse.json({
+        status: 400,
+        message: "Invalid workout data",
+        success: false,
+        errors: parsedBody.error.errors,
+      });
+    }
     const existingWorkout = await prisma.workout.findUnique({
       where: {
         id: body.id,
       },
     });
     if (!existingWorkout) {
-      return NextResponse.error({
+      return NextResponse.json({
         status: 404,
-        statusText: "Workout not found",
+        message: "Workout not found",
+        success: false,
       });
     }
     const workout = await prisma.workout.delete({
@@ -107,13 +150,16 @@ export async function DELETE(request) {
     });
     return NextResponse.json({
       message: "Workout deleted successfully",
-      statusCode: 200,
+      status: 200,
       data: workout,
+      success: true,
     });
   } catch (error) {
-    return NextResponse.error({
+    return NextResponse.json({
       status: 500,
-      statusText: "Internal Server Error",
+      message: "Internal Server Error",
+      success: false,
+      error: error.message,
     });
   }
 }
