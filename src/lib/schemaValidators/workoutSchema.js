@@ -30,6 +30,8 @@ const workoutSchema = z.object({
   imageUrl: z.string().url().optional(),
   videoUrl: z.string().url().optional(),
   workout_instance: z.array(workoutInstanceSchema).optional(),
+  createdAt: z.date().optional(), //* Optional because it's auto-generated
+  updatedAt: z.date().optional(), //* Optional because it's auto-generated
 });
 
 export default workoutSchema;
