@@ -20,7 +20,7 @@ export async function GET() {
       data: {
         kindeId: user.id,
         name: user.given_name ?? "" + user.family_name ?? "",
-        email: user.email ?? "", // Using nullish coalescing operator to provide a default empty string value
+        email: user.email ?? "", //* Using nullish coalescing operator to provide a default empty string value
         imageUrl: user.picture ?? "",
       },
     });
